@@ -1,13 +1,17 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 
-const BasicButton = ({ title, onPress }) => {
-  return (
-    <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.buttonText}>{title}</Text>
-    </TouchableOpacity>
-  );
-};
+const BasicButton = ({ title, onPress, style, textStyle, disabled }) => {
+    return (
+      <TouchableOpacity 
+          style={[styles.button, style]} 
+          onPress={onPress}
+          disabled={disabled}
+      >
+        <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+      </TouchableOpacity>
+    );
+  };
 
 const styles = StyleSheet.create({
   button: {

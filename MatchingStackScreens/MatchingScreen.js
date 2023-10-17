@@ -33,7 +33,7 @@ const MatchingScreen = ({navigation}) => {
                 </Text>
             </View>
         
-            <BasicButton title="매칭하러 가기" onPress={() => navigation.navigate('MatchingFilter')} />
+            <BasicButton title="매칭하러 가기" onPress={() => navigation.navigate('MatchingFilterInterests')} />
         </SafeAreaView>
     )
 }

@@ -1,7 +1,8 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native"
 import MatchingScreen from '../MatchingStackScreens/MatchingScreen';
-import MatchingFilter from '../MatchingStackScreens/MatchingFilter';
+import MatchingFilterInterests from '../MatchingStackScreens/MatchingFilterInterests';
+import MatchingFilterTendency from '../MatchingStackScreens/MatchingFilterTendency';
 import React from "react"
 import { View, Text, SafeAreaView, Image, ScrollView } from "react-native";
 const Stack = createStackNavigator();
@@ -32,7 +33,8 @@ const MatchingStackScreen = ({ navigation, route }) => {
             }}
         >
             <Stack.Screen name="MatchingScreen" component={MatchingScreen} options = {{headerShown : true}} />
-            <Stack.Screen name="MatchingFilter" component={MatchingFilter} options = {{headerShown : true}} />
+            <Stack.Screen name="MatchingFilterInterests" component={MatchingFilterInterests} options = {{headerShown : true}} />
+            <Stack.Screen name="MatchingFilterTendency" component={MatchingFilterTendency} options = {{headerShown : true}} />
         </Stack.Navigator>
     )
 }

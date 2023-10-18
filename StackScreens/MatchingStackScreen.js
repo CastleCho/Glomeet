@@ -1,8 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native"
 import MatchingScreen from '../MatchingStackScreens/MatchingScreen';
-import MatchingFilterInterests from '../MatchingStackScreens/MatchingFilterInterests';
-import MatchingFilterTendency from '../MatchingStackScreens/MatchingFilterTendency';
+import MatchingFilter from '../MatchingStackScreens/MatchingFilter';
+import MatchingLoading from '../MatchingStackScreens/MatchingLoading';
+import MatchingComplete from '../MatchingStackScreens/MatchingComplete';
 import React from "react"
 import { View, Text, SafeAreaView, Image, ScrollView } from "react-native";
 const Stack = createStackNavigator();
@@ -10,14 +11,14 @@ const Stack = createStackNavigator();
 
 const MatchingStackScreen = ({ navigation, route }) => {
     React.useLayoutEffect(() => {
-    const routeName =
-        getFocusedRouteNameFromRoute(route) ?? 'MatchingScreen';
-    if (routeName != 'MatchingScreen') {
-        navigation.setOptions({tabBarStyle: {display: 'none'}});
-    } 
-    else {
-        navigation.setOptions({tabBarStyle: {display: 'flex', height: 70}});
-    }
+        const routeName =
+            getFocusedRouteNameFromRoute(route) ?? 'MatchingScreen';
+        if (routeName !== 'MatchingScreen' && routeName !== 'MatchingComplete') {
+            navigation.setOptions({tabBarStyle: {display: 'none'}});
+        } 
+        else {
+            navigation.setOptions({tabBarStyle: {display: 'flex', height: 70}});
+        }
     }, [navigation, route]);
     return (
         <Stack.Navigator 
@@ -33,8 +34,9 @@ const MatchingStackScreen = ({ navigation, route }) => {
             }}
         >
             <Stack.Screen name="MatchingScreen" component={MatchingScreen} options = {{headerShown : true}} />
-            <Stack.Screen name="MatchingFilterInterests" component={MatchingFilterInterests} options = {{headerShown : true}} />
-            <Stack.Screen name="MatchingFilterTendency" component={MatchingFilterTendency} options = {{headerShown : true}} />
+            <Stack.Screen name="MatchingFilter" component={MatchingFilter} options = {{headerShown : true}} />
+            <Stack.Screen name="MatchingLoading" component={MatchingLoading} options = {{headerShown : true}} />
+            <Stack.Screen name="MatchingComplete" component={MatchingComplete} options = {{headerShown : true, headerLeft: () => null}} />
         </Stack.Navigator>
     )
 }

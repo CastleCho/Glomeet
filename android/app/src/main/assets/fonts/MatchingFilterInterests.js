@@ -2,14 +2,22 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import BasicButton from '../Styles/BasicButton.js';
 import { HeaderBackButton } from '@react-navigation/elements';
+import { Modal, Button } from 'react-native';
+import BasicModal from '../Styles/BasicModal.js';
 const MatchingFilterInterests = ({ navigation }) => {
     const [selectedInterests, setSelectedInterests] = useState([]);
     const [selectedTendency, setSelectedTendency] = useState('');
     const [step, setStep] = useState('interests'); // 'interests' 또는 'tendency'
-
+    const [modalVisible, setModalVisible] = useState(false);
     const interests = ['사진', '쇼핑', '노래방', '요가', '요리', '테니스', '러닝', '수영', '예술', '여행', '익스트림', '음악', '술', '게임'];
     const tendency = ['외향적', '내향적', '상관없음'];
-
+    const onNextPress = () => {
+        if (step === 'interests') {
+            setStep('tendency');
+        } else if (selectedTendency) {
+            setModalVisible(true); // 다음으로 넘어가기를 누를 때 모달 표시
+        }
+    };
     const toggleInterest = interest => {
         if (selectedInterests.includes(interest)) {
             setSelectedInterests(selectedInterests.filter(item => item !== interest));
@@ -42,6 +50,46 @@ const MatchingFilterInterests = ({ navigation }) => {
     }, [step]);
     return (
         <SafeAreaView style={styles.container}>
+            <BasicModal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                isVisible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onRequestClose={() => {
+                    setModalVisible(false);
+                }}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <View style={styles.modalTextView}>
+                            <Text style={styles.modalText}>매칭을 시작하시겠습니까?</Text>
+                        </View>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity 
+                                style={styles.modalbutton}
+                                onPress={() => setModalVisible(false)}
+                            >
+                                <Text style={styles.modalbuttonText}>
+                                    취소
+                                </Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity  
+                                style={[styles.modalbutton,{backgroundColor:'#5782F1'}]}
+                                onPress={() => {
+                                // 원하는 로직을 추가하세요.
+                                setModalVisible(false);
+                                navigation.navigate('NextScreen');
+                            }}
+                            >
+                                <Text style={[styles.modalbuttonText,{color:'white'}]}>
+                                    시작
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </BasicModal>
 
             <View style={{ backgroundColor: 'white' }}>
                 <Text style={styles.AdviceText}>
@@ -117,13 +165,7 @@ const MatchingFilterInterests = ({ navigation }) => {
                 <BasicButton
                     style={(step === 'interests' && selectedInterests.length > 0) || (step === 'tendency' && selectedTendency) ? {} : { backgroundColor: '#9FA4B1' }}
                     title="다음으로 넘어가기"
-                    onPress={() => {
-                        if (step === 'interests') {
-                            setStep('tendency');
-                        } else if (selectedTendency) {
-                            navigation.navigate('NextScreen');
-                        }
-                    }}
+                    onPress={onNextPress}
                     disabled={(step === 'interests' && selectedInterests.length === 0) || (step === 'tendency' && !selectedTendency)}
                 />
             </View>
@@ -192,6 +234,47 @@ const styles = StyleSheet.create({
     },
     selectedtext: {
         color: 'white',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: 'rgba(0,0,0,0.5)'
+    },
+    modalTextView:{
+        flex:1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalView: {
+        height: '22%',
+        width: '76%',
+        backgroundColor: "white",
+        borderRadius: 5,
+        alignItems: "center",
+    },
+    modalText: {
+        fontFamily: 'Pretendard-SemiBold',
+        fontSize: 16,
+        color: '#000',
+    },
+    buttonContainer: {
+        flexDirection: 'row',  
+    },
+    modalbutton: {
+        height: 46,
+        width: '37%',
+        justifyContent: "center",
+        backgroundColor: "#F0F0F0",
+        borderRadius: 5,
+        alignItems: "center",
+        marginHorizontal:'4%',
+        marginBottom:'8%'
+    },
+    modalbuttonText: {
+        fontFamily: 'Pretendard-Medium',
+        fontSize: 15,
+        color: '#8E8E8E',
     }
 });
 

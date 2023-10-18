@@ -49,7 +49,24 @@ const styles = StyleSheet.create({
     navtext:{
         fontFamily: 'Pretendard-Regular',
         fontSize: 12,
-    }
+    },
+    gradient: {
+        width:307, 
+        height:320, 
+        borderRadius:20,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 0.5,
+        },
+        borderWidth: 0.1,
+        borderColor: '#D3D3D3',
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 4, // Android에서도 동작하게 하기 위한 속성
+        justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
+        alignItems: 'center',
+      },
     
 });
 

@@ -1,134 +1,149 @@
-import React, { useState, useRef } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, FlatList, Animated } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import BasicButton from '../Styles/BasicButton.js';
-
+import { HeaderBackButton } from '@react-navigation/elements';
+import { Modal, Button } from 'react-native';
+import BasicModal from '../Styles/BasicModal.js';
 const MatchingFilter = ({ navigation }) => {
     const [selectedInterests, setSelectedInterests] = useState([]);
     const [selectedTendency, setSelectedTendency] = useState('');
-    const animationValue = useRef(new Animated.Value(0)).current;
-
+    const [step, setStep] = useState('interests'); // 'interests' 또는 'tendency'
+    const [modalVisible, setModalVisible] = useState(false);
     const interests = ['사진', '쇼핑', '노래방', '요가', '요리', '테니스', '러닝', '수영', '예술', '여행', '익스트림', '음악', '술', '게임'];
     const tendency = ['외향적', '내향적', '상관없음'];
-
-    const toggleInterest = (interest) => {
-        setSelectedInterests(prev => {
-            if (prev.includes(interest)) {
-                return prev.filter(i => i !== interest);
-            } else {
-                return [...prev, interest];
-            }
-        });
+    const onNextPress = () => {
+        if (step === 'interests') {
+            setStep('tendency');
+        } else if (selectedTendency) {
+            setModalVisible(true); // 다음으로 넘어가기를 누를 때 모달 표시
+        }
+    };
+    const toggleInterest = interest => {
+        if (selectedInterests.includes(interest)) {
+            setSelectedInterests(selectedInterests.filter(item => item !== interest));
+        } else {
+            setSelectedInterests([...selectedInterests, interest]);
+        }
     };
 
     const toggleTendency = (tendency) => {
-        setSelectedTendency(prev => prev === tendency ? '' : tendency);
+        if (selectedTendency === tendency) {
+            setSelectedTendency(''); // 이미 선택된 성향을 다시 클릭하면 해제
+        } else {
+            setSelectedTendency(tendency); // 아니라면 선택
+        }
     };
-
-    const navigateToTendency = () => {
-        Animated.timing(animationValue, {
-            toValue: 1,
-            duration: 500,
-            useNativeDriver: false,
-        }).start();
-    };
-
-    const isTendencyScreen = animationValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: [0, 1]
-    });
-
+    useEffect(() => {
+        if (step === 'tendency') {
+            navigation.setOptions({
+                headerBackTitleVisible: false,
+                headerLeft: (props) => (
+                    <HeaderBackButton {...props} onPress={() => setStep('interests')} />
+                )
+            });
+        } else {
+            // 관심분야 선택 화면으로 돌아왔을 때, 기본 동작을 복원
+            navigation.setOptions({
+                headerLeft: undefined
+            });
+        }
+    }, [step]);
     return (
         <SafeAreaView style={styles.container}>
+            <BasicModal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                isVisible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onConfirm={() => {
+                    navigation.navigate('MatchingLoading');
+                    setModalVisible(false);
+                }}
+            >
+            </BasicModal>
+
             <View style={{ backgroundColor: 'white' }}>
                 <Text style={styles.AdviceText}>
-                    {isTendencyScreen === 0
-                        ? "원하는 관심분야를\n선택해주세요"
-                        : "원하는 성향을\n선택해주세요"}
+                    {step === 'interests' ? "원하는 관심분야를\n선택해주세요" : "원하는 성향을\n선택해주세요"}
                 </Text>
-                <Animated.View style={{ ...styles.pagebar, width: animationValue.interpolate({ inputRange: [0, 1], outputRange: ['50%', '100%'] }) }} />
+                {step === 'interests' ? (<View style={styles.pagebar}/>
+                ) : (
+                <View style={{flexDirection: 'row'}} >
+                    <View style={{flex:1}}/>
+                    <View style={styles.pagebar}/>
+                </View>
+                )}
             </View>
 
-            <View style={{ flex: 1, alignItems: 'center' }}>
-                {isTendencyScreen === 0 && 
-                    <>
-                        <FlatList
-                            style={{marginTop:30}}
-                            data={interests}
-                            numColumns={2}
-                            renderItem={({ item }) => (
-                                <TouchableOpacity
-                                    style={[
-                                        styles.button,
-                                        selectedInterests.includes(item) ? styles.selected : {}
-                                    ]}
-                                    onPress={() => toggleInterest(item)}
-                                >
-                                    <Text
-                                        style={[
-                                            styles.selecttext,
-                                            selectedInterests.includes(item) ? styles.selectedtext : {}
-                                        ]}
-                                    >
-                                        {item}
-                                    </Text>
-                                </TouchableOpacity>
-                            )}
-                            keyExtractor={item => item}
-                        />
-                        <View style={{ marginBottom: 40, alignItems: 'center' }}>
-                            <BasicButton
-                                style={selectedInterests.length > 0 ? {} : { backgroundColor: '#9FA4B1' }}
-                                title="다음으로 넘어가기"
-                                onPress={navigateToTendency}
-                                disabled={selectedInterests.length === 0}
-                            />
-                        </View>
-                    </>
-                }
+            {step === 'interests' ? (
+                <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#E5E5E5' }}>
+                    <FlatList
+                    key="interests"
+                    style={{marginTop:30}}
+                    data={interests}
+                    numColumns={2}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            style={[
+                                styles.button,
+                                selectedInterests.includes(item) ? styles.selected : {}
+                            ]}
+                            onPress={() => toggleInterest(item)}
+                        >
+                            <Text
+                                style={[
+                                    styles.selecttext,
+                                    selectedInterests.includes(item) ? styles.selectedtext : {}
+                                ]}
+                            >
+                                {item}
+                            </Text>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item}
+                />
+                </View>
+            ) : (
+                <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#E5E5E5' }}>
+                    <FlatList
+                    key="tendency"
+                    style={{marginTop:140}}
+                    data={tendency}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity
+                            style={[
+                                styles.buttonTendency,
+                                selectedTendency === item ? styles.selected : {}
+                            ]}
+                            onPress={() => toggleTendency(item)}
+                        >
+                            <Text
+                                style={[
+                                    styles.selecttext,
+                                    selectedTendency === item ? styles.selectedtext : {}
+                                ]}
+                            >
+                                {item}
+                            </Text>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item}
+                />
+                </View>
+            )}
 
-                {isTendencyScreen === 1 &&
-                    <>
-                        <FlatList
-                            style={{marginTop:140}}
-                            data={tendency}
-                            renderItem={({ item }) => (
-                                <TouchableOpacity
-                                    style={[
-                                        styles.button,
-                                        selectedTendency === item ? styles.selected : {}
-                                    ]}
-                                    onPress={() => toggleTendency(item)}
-                                >
-                                    <Text
-                                        style={[
-                                            styles.selecttext,
-                                            selectedTendency === item ? styles.selectedtext : {}
-                                        ]}
-                                    >
-                                        {item}
-                                    </Text>
-                                </TouchableOpacity>
-                            )}
-                            keyExtractor={item => item}
-                        />
-                        <View style={{ marginBottom: 40, alignItems: 'center' }}>
-                            <BasicButton
-                                style={selectedTendency ? {} : { backgroundColor: '#9FA4B1' }}
-                                title="다음으로 넘어가기"
-                                onPress={() => selectedTendency && navigation.navigate('NextScreen')}
-                                disabled={!selectedTendency}
-                            />
-                        </View>
-                    </>
-                }
+            <View style={{ marginBottom: 40, alignItems: 'center' }}>
+                <BasicButton
+                    style={(step === 'interests' && selectedInterests.length > 0) || (step === 'tendency' && selectedTendency) ? {} : { backgroundColor: '#9FA4B1' }}
+                    title="다음으로 넘어가기"
+                    onPress={onNextPress}
+                    disabled={(step === 'interests' && selectedInterests.length === 0) || (step === 'tendency' && !selectedTendency)}
+                />
             </View>
         </SafeAreaView>
     );
-}
-
-// ... StyleSheet 정의 및 export는 동일합니다 ...
-
-
+};
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -191,6 +206,47 @@ const styles = StyleSheet.create({
     },
     selectedtext: {
         color: 'white',
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: 'rgba(0,0,0,0.5)'
+    },
+    modalTextView:{
+        flex:1,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    modalView: {
+        height: '22%',
+        width: '76%',
+        backgroundColor: "white",
+        borderRadius: 5,
+        alignItems: "center",
+    },
+    modalText: {
+        fontFamily: 'Pretendard-SemiBold',
+        fontSize: 16,
+        color: '#000',
+    },
+    buttonContainer: {
+        flexDirection: 'row',  
+    },
+    modalbutton: {
+        height: 46,
+        width: '37%',
+        justifyContent: "center",
+        backgroundColor: "#F0F0F0",
+        borderRadius: 5,
+        alignItems: "center",
+        marginHorizontal:'4%',
+        marginBottom:'8%'
+    },
+    modalbuttonText: {
+        fontFamily: 'Pretendard-Medium',
+        fontSize: 15,
+        color: '#8E8E8E',
     }
 });
 

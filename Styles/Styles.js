@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
       shadowColor: "#000",
         shadowOffset: {
           width: 0,
-          height: 0.5,
+          height: 1,
         },
         shadowOpacity: 0.25,
         shadowRadius: 20,
@@ -69,6 +69,25 @@ const styles = StyleSheet.create({
         justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
         alignItems: 'center',
       },
+    chatbutton:{
+        width:281, 
+        height:38, 
+        elevation:2,
+        backgroundColor:'white',
+        borderRadius:20, 
+        justifyContent:'center', 
+        alignItems:'center',
+        flexDirection:'row',
+        paddingHorizontal:20, 
+        marginTop:14,
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 1,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 20,
+      }
     
 });
 

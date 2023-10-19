@@ -107,7 +107,7 @@ const MatchingFilter = ({ navigation }) => {
                 <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#E5E5E5' }}>
                     <FlatList
                     key="tendency"
-                    style={{marginTop:140}}
+                    style={{marginTop:140, }}
                     data={tendency}
                     renderItem={({ item }) => (
                         <TouchableOpacity
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
     button: {
         width: 140,
         height: 45,
-        marginVertical: 5,
+        marginBottom: 10,
         marginHorizontal: 7.5,
         backgroundColor: 'white',
         borderColor: '#E8E6EA',
@@ -176,7 +176,8 @@ const styles = StyleSheet.create({
     buttonTendency: {
         width: 327,
         height: 56,
-        marginVertical: 5,
+        marginBottom: 12,
+        marginHorizontal:10,
         backgroundColor: 'white',
         borderColor: '#E8E6EA',
         borderWidth:1,
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
         borderWidth:1,
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5, // Android에서도 동작하게 하기 위한 속성
+        elevation: 4, // Android에서도 동작하게 하기 위한 속성
         justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
         alignItems: 'center',
     },

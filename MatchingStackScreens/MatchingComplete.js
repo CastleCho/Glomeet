@@ -56,22 +56,23 @@ const MatchingComplete = ({ navigation }) => {
             <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 14, color: '#B4B4B4', marginTop: '1%'}}>
                 이제 메세지를 보내보세요 👀
             </Text>
-            <LinearGradient
-                colors={['#BFD0FA', '#fff']}
-                style={[styles.gradient,{marginTop:'7%'}]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0, y: 1 }}
-            >
-                    <Image 
-                        source={require('../images/JessicaIcon.png')}
-                        style={{width:125, height:144}}
-                    />
-                    <Text style={{fontFamily: 'GmarketSansBold', fontSize: 34, color: '#001F6F',marginTop:10}}>
-                        Jessica
-                    </Text>
-                    <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 14, color: '#949698'}}>
-                        #경영학과  #카페{'\n'} #21   #회화공부
-                    </Text>
+            <View style={[styles.matchingcard, {marginTop:'7%'}]}>
+                <LinearGradient
+                    colors={['#BFD0FA', '#fff']}
+                    style={[styles.gradient]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 0, y: 1 }}
+                >
+                <Image 
+                    source={require('../images/JessicaIcon.png')}
+                    style={{width:125, height:144}}
+                />
+                <Text style={{fontFamily: 'GmarketSansBold', fontSize: 34, color: '#001F6F',marginTop:10}}>
+                    Jessica
+                </Text>
+                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 14, color: '#949698'}}>
+                    #경영학과  #카페{'\n'} #21   #회화공부
+                </Text>
                 <TouchableOpacity style={{width:281, height:38, elevation:2,backgroundColor:'white',borderRadius:20, justifyContent:'center', alignItems:'center',flexDirection:'row',paddingHorizontal:20, marginTop:14}}>
                     <Text style={{fontFamily: 'Pretendard-Regular', fontSize: 15, color: '#635C5C'}}>
                         Jessica에게 메세지 보내기
@@ -82,7 +83,8 @@ const MatchingComplete = ({ navigation }) => {
                         style={{width:20, height:17}}
                     />
                 </TouchableOpacity>
-            </LinearGradient>
+                </LinearGradient>
+            </View>
             <Text style={{ fontFamily: 'Pretendard-Regular', fontSize: 12, color: '#8A8A8A', marginTop: 43, letterSpacing: 1.3 }}>
                 🔥 다음 매칭까지 {formatTime(time)}
             </Text>

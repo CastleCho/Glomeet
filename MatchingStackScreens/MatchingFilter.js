@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import BasicButton from '../Styles/BasicButton.js';
 import { HeaderBackButton } from '@react-navigation/elements';
-import { Modal, Button } from 'react-native';
 import BasicModal from '../Styles/BasicModal.js';
 const MatchingFilter = ({ navigation }) => {
     const [selectedInterests, setSelectedInterests] = useState([]);

@@ -9,7 +9,7 @@ const MatchingLoading = ({navigation}) => {
     const [dots, setDots] = useState('');
     useEffect(() => {
         const timeout = setTimeout(() => {
-          navigation.navigate('MatchingComplete'); // 여기에 이동하고 싶은 화면의 이름을 넣습니다.
+          navigation.replace('MatchingComplete'); // 여기에 이동하고 싶은 화면의 이름을 넣습니다.
         }, 5000); // 5초 후에 실행
     
         return () => clearTimeout(timeout); // 컴포넌트가 언마운트될 때 타이머를 제거합니다.

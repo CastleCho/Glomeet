@@ -6,12 +6,12 @@ import main from '../images/imgmatching_main2.png'
 import LinearGradient from 'react-native-linear-gradient';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import React, { useState, useEffect } from 'react';
+import BasicModal from '../Styles/BasicModal.js';
 const MatchingComplete = ({ navigation }) => {
+    const [modalVisible, setModalVisible] = useState(false);
     const [time, setTime] = useState(60 * 60); // 초 단위로 1시간 설정
 
     useEffect(() => {
-        navigation.setOptions({
-            headerBackTitleVisible: false})
         const interval = setInterval(() => {
             setTime(prevTime => prevTime - 1);
         }, 1000);
@@ -29,6 +29,18 @@ const MatchingComplete = ({ navigation }) => {
     };
     return(
         <SafeAreaView style= {styles.container}>
+            <BasicModal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                isVisible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onConfirm={() => {
+                    navigation.replace('MatchingFilter');
+                    setModalVisible(false);
+                }}
+            >
+            </BasicModal>
             <View style={styles.notice}>
                 <Image source={logo} style={{width: 338, height: 93}} />
             </View> 
@@ -80,7 +92,7 @@ const MatchingComplete = ({ navigation }) => {
                             
                         }}
             />
-            <BasicButton style={{marginTop:13}} title="500P로 추가 매칭하기" onPress={() => navigation.replace('MatchingFilter')} />
+            <BasicButton style={{marginTop:13}} title="500P로 추가 매칭하기" onPress={() => setModalVisible(true)} />
         </SafeAreaView>
     )
 }

@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
 import BasicButton from '../Styles/BasicButton.js';
 import { HeaderBackButton } from '@react-navigation/elements';
 import BasicModal from '../Styles/BasicModal.js';
+import music from '../images/music.png';
+import noodles from '../images/noodles.png';
+import trip from '../images/outdoor.png';
+import extreme from '../images/parachute.png';
+import platte from '../images/platte.png';
+import swimming from '../images/ripple.png';
+import shopping from '../images/shopping.png';
+import tennis from '../images/tennis.png';
+import yoga from '../images/viencharts.png';
+import voice from '../images/voice.png';
+import camera from '../images/camera.png';
+import gamehandle from '../images/game-handle.png';
+import drink from '../images/goblet-full.png';
+import running from '../images/sport.png';
+import backicon from '../images/backicon.png';
 const MatchingFilter = ({ navigation }) => {
     const [selectedInterests, setSelectedInterests] = useState([]);
     const [selectedTendency, setSelectedTendency] = useState('');
     const [step, setStep] = useState('interests'); // 'interests' 또는 'tendency'
     const [modalVisible, setModalVisible] = useState(false);
     const interests = ['사진', '쇼핑', '노래방', '요가', '요리', '테니스', '러닝', '수영', '예술', '여행', '익스트림', '음악', '술', '게임'];
+    const icon = [camera, shopping, voice, yoga, noodles, tennis ,running, swimming, platte, trip, extreme, music, drink, gamehandle]
     const tendency = ['외향적', '내향적', '상관없음'];
     const onNextPress = () => {
         if (step === 'interests') {
@@ -37,7 +53,10 @@ const MatchingFilter = ({ navigation }) => {
             navigation.setOptions({
                 headerBackTitleVisible: false,
                 headerLeft: (props) => (
-                    <HeaderBackButton {...props} onPress={() => setStep('interests')} />
+                    <TouchableOpacity {...props} onPress={() => setStep('interests')} >
+                        <Image source={backicon} style={{width:9, height:18,margin:21}}/>
+                    </TouchableOpacity>
+                    
                 )
             });
         } else {
@@ -82,7 +101,7 @@ const MatchingFilter = ({ navigation }) => {
                     style={{marginTop:30}}
                     data={interests}
                     numColumns={2}
-                    renderItem={({ item }) => (
+                    renderItem={({ item, index }) => (
                         <TouchableOpacity
                             style={[
                                 styles.button,
@@ -90,6 +109,13 @@ const MatchingFilter = ({ navigation }) => {
                             ]}
                             onPress={() => toggleInterest(item)}
                         >
+                            <Image  
+                                source={icon[index]} 
+                                style={[
+                                    styles.icon,
+                                    selectedInterests.includes(item) ? styles.selectedicon : {}
+                                ]}
+                            />
                             <Text
                                 style={[
                                     styles.selecttext,
@@ -119,7 +145,7 @@ const MatchingFilter = ({ navigation }) => {
                         >
                             <Text
                                 style={[
-                                    styles.selecttext,
+                                    styles.tendencytext,
                                     selectedTendency === item ? styles.selectedtext : {}
                                 ]}
                             >
@@ -162,6 +188,7 @@ const styles = StyleSheet.create({
 
     },
     button: {
+        flexDirection:'row',
         width: 140,
         height: 45,
         marginBottom: 10,
@@ -171,7 +198,15 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderRadius: 15,
         alignItems: 'center',
-        justifyContent: 'center',
+    },
+    icon: {
+        marginLeft:10,
+        width:19,
+        height:19,
+        tintColor: '#5782F1'
+    },
+    selectedicon: {
+        tintColor: '#ffffff'
     },
     buttonTendency: {
         width: 327,
@@ -201,8 +236,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     selecttext:{
+        flex:1,
         fontFamily: 'Pretendard-SemiBold',
         fontSize: 14,
+        textAlign: 'center',
+        right: 12
+    },
+    tendencytext:{
+        fontFamily: 'Pretendard-SemiBold',
+        fontSize: 16,
+        
     },
     selectedtext: {
         color: 'white',

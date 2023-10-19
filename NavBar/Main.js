@@ -29,7 +29,7 @@ const Main = () => {
                 ],
                 tabBarItemStyle: {
                     justifyContent: 'center', // 아이콘과 라벨의 수직 정렬
-                    paddingVertical: 3,       // 바닥 패딩을 줄여서 라벨을 위로 올립니다.
+                    paddingVertical: 11,       // 바닥 패딩을 줄여서 라벨을 위로 올립니다.
                 }
             }}
         >

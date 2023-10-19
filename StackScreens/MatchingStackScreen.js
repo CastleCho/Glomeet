@@ -17,7 +17,7 @@ const MatchingStackScreen = ({ navigation, route }) => {
             navigation.setOptions({tabBarStyle: {display: 'none'}});
         } 
         else {
-            navigation.setOptions({tabBarStyle: {display: 'flex'}});
+            navigation.setOptions({tabBarStyle: {display: 'flex', height: 70}});
         }
     }, [navigation, route]);
     return (

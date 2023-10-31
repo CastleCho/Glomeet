@@ -3,7 +3,8 @@ import {StyleSheet, Text, View, Image, FlatList,TextInput,TouchableOpacity} from
 import { Modalize } from 'react-native-modalize';
 import BasicModal from '../Styles/BasicModal';
 import BasicButton from '../Styles/BasicButton';
-
+import alramicon from '../images/alramicon.png'
+import profileicon from '../images/profileicon.png'
 const missions = [
     { id: '1', title: '오늘의 매칭하고', point: '300P 즉시 받기',icon: require('../images/bell.png')},
     { id: '2', title: '채팅 3번하고', point: '100P 즉시 받기', icon: require('../images/thumb.png')},
@@ -98,20 +99,20 @@ export default function App() {
 
           <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 18, color: '#25282B',right:130, marginTop:20}}>
             <Text>관심분야</Text>
-            </Text>
-            
-          <FlatList
-          key="interests"
-          data={interests}
-          horizontal={true}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              style={[
-                styles.button,
-                selectedInterests.includes(item) ? styles.selected : {}
-                     ]}
-                      onPress={() => toggleInterest(item)}
-                >
+          </Text>
+          <View>
+            <FlatList
+            key="interests"
+            data={interests}
+            numColumns={2}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                style={[
+                  styles.button,
+                  selectedInterests.includes(item) ? styles.selected : {}
+                      ]}
+                        onPress={() => toggleInterest(item)}
+              >
                 <Text
                   style={[
                     styles.selecttext,
@@ -119,14 +120,15 @@ export default function App() {
                           ]}
                         >
                         {item}
-                  </Text>
-                        </TouchableOpacity>
-                    )}
-                    keyExtractor={item => item}
+                </Text>
+              </TouchableOpacity>
+                  )}
+                  keyExtractor={item => item}
             />
+          </View>
           <FlatList
           key="tendency"
-          style={{marginTop:200, }}
+          style={{}}
           data={tendency}
           horizontal={true}
           renderItem={({ item }) => (
@@ -157,34 +159,29 @@ export default function App() {
 
     return (
         <View style={styles.container}>
-                      <BasicModal
-                animationType="fade"
-                transparent={true}
-                visible={modalVisible}
-                isVisible={modalVisible}
-                onClose={() => setModalVisible(false)}
-                onConfirm={() => {
-                    navigation.replace('MatchingFilter');
-                    setModalVisible(false);
-                }}
-            >
-            </BasicModal>
           <View style={styles.header}>
           </View>
           <View style={styles.greetingBox}>
-            <TouchableOpacity style={{flex:1}} onPress={handleBellClick}>
-              <Image source={require('../images/bell_click.png')} style={styles.alram} />
+            <View>
+              <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 18, color: 'black', marginTop: '1%'}}>
+                안녕하세요! 귀여운 다은님
+              </Text> 
+              <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 12, color: 'black', marginTop: '1%'}}>
+                오늘도 친구를 만나러 가볼까요?
+              </Text>
+            </View>
+            <View style={styles.buttonbox}>
+            <TouchableOpacity style={styles.selectedicon} onPress={handleBellClick}>
+              <Image source={alramicon} style={styles.alram}/>
             </TouchableOpacity>
-            <TouchableOpacity onPress={personClick}>
-              <Image source={require('../images/person.png')} style={styles.person} />
+            <TouchableOpacity style={styles.selectedicon} onPress={personClick}>
+              <Image source={profileicon} style={styles.person}/>
             </TouchableOpacity>
-            <Image source={require('../images/Rectangle.png')} style={styles.iconWrapper} />
-            <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 18, color: 'black', marginTop: '1%'}}>
-              <Text>안녕하세요! <Text style={styles.boldText}>귀여운 다은님</Text></Text>
-            </Text> 
-            <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 12, color: 'black', marginTop: '1%'}}>
-              <Text>오늘도 친구를 만나러 가볼까요?</Text>
-            </Text>
+            </View>
+
+            
+            
+            
             {/* 통화 및 메시지 아이콘 */}
           </View>
           <Image source={require('../images/avatar.png')} style={styles.avatar} />
@@ -284,12 +281,35 @@ const styles = StyleSheet.create({
         fontFamily: 'Pretendard-Bold',
       },
     greetingBox: {
+      flexDirection: 'row',
       marginTop: 55,
-      padding: 15,
+      height: 84,
       borderColor: 'white',
       borderWidth: 5,
       borderRadius: 20,
       backgroundColor: 'white',
+      justifyContent: 'center', 
+      alignItems: 'center'
+    },
+    buttonbox: {
+      marginLeft: 60,
+      flexDirection: 'row',
+      borderRadius: 20,
+      height: 40,
+      width: 74,
+      backgroundColor: '#E5E5E5',
+      justifyContent: 'center', 
+      alignItems: 'center'
+    },
+    selectedicon: {
+      borderRadius:50, 
+      backgroundColor:'white', 
+      width:34,
+      height:34,
+      borderWidth: 2, 
+      borderColor:'#4C7EFD', 
+      justifyContent: 'center', 
+      alignItems: 'center' 
     },
     avatar: {
       width: 233,
@@ -299,11 +319,8 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
     },
     backgroundImage: {
-        position: 'absolute',
-        top: 300,
-        left: 50,
-        width: 300,       // 원하는 가로 크기를 설정합니다.
-        height: 200,      // 원하는 세로 크기를 설정합니다.
+        width: 430,       // 원하는 가로 크기를 설정합니다.
+        height: 210,      // 원하는 세로 크기를 설정합니다.
         resizeMode: 'contain', // 이미지의 원래 비율을 유지하면서 크기를 조절합니다.
     },
     ellipse: {
@@ -391,18 +408,12 @@ const styles = StyleSheet.create({
         marginTop: 20,
       },
       alram: {
-      position: 'absolute',
-      right: '0%',
-      marginTop: 5,
-      width: 33, 
-      height: 34, 
+      width: 20, 
+      height: 20, 
     },
     person: {
-        position: 'absolute', 
-        right: 35, 
-        marginTop: 7,
-        width: 30,  
-        height: 30, 
+        width: 20,  
+        height: 20, 
       },
       iconWrapper: {
         position: 'absolute', 

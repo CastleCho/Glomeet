@@ -48,24 +48,7 @@ const MatchingFilter = ({ navigation }) => {
             setSelectedTendency(tendency); // 아니라면 선택
         }
     };
-    useEffect(() => {
-        if (step === 'tendency') {
-            navigation.setOptions({
-                headerBackTitleVisible: false,
-                headerLeft: (props) => (
-                    <TouchableOpacity {...props} onPress={() => setStep('interests')} >
-                        <Image source={backicon} style={{width:9, height:18,margin:21}}/>
-                    </TouchableOpacity>
-                    
-                )
-            });
-        } else {
-            // 관심분야 선택 화면으로 돌아왔을 때, 기본 동작을 복원
-            navigation.setOptions({
-                headerLeft: undefined
-            });
-        }
-    }, [step]);
+    
     return (
         <SafeAreaView style={styles.container}>
             <BasicModal

@@ -1,6 +1,8 @@
-import React, { useRef, useEffect,useState } from 'react';
-import {StyleSheet, Text, View,Alert, Image, FlatList, Modal,TouchableOpacity} from 'react-native';
+import React, { useRef,useState } from 'react';
+import {StyleSheet, Text, View, Image, FlatList,TextInput,TouchableOpacity} from 'react-native';
 import { Modalize } from 'react-native-modalize';
+import BasicModal from '../Styles/BasicModal';
+import BasicButton from '../Styles/BasicButton';
 
 const missions = [
     { id: '1', title: '오늘의 매칭하고', point: '300P 즉시 받기',icon: require('../images/bell.png')},
@@ -11,35 +13,171 @@ const missions = [
     { id: '6', title: '등록한 모임 인원이 달성하면', point: '300P 즉시 받기', icon: require('../images/book.png')},
 ];
 
-function showAlert(title, message) {
-  Alert.alert(
-    title,
-    message,
-    [
-      { text: "닫기", onPress: () => console.log("OK Pressed") }
-    ],
-    { cancelable: true }
-  );
-}
-
 export default function App() {
+    const [modalVisible, setModalVisible] = useState(false);
     const modalizeRef = useRef(null);
+    const [selectedModalContent, setSelectedModalContent] = useState(); // default or other
+    const tendency = ['외향적', '내향적'];
+    const interests = ['언어', '음식','운동','문화','게임','여행'];
+    const [selectedTendency, setSelectedTendency] = useState('');
+    const [selectedInterests, setSelectedInterests] = useState([]);
 
-    useEffect(() => {
-        modalizeRef.current?.open();
-    }, []);
+    const toggleInterest = interest => {
+      if (selectedInterests.includes(interest)) {
+          setSelectedInterests(selectedInterests.filter(item => item !== interest));
+      } else {
+          setSelectedInterests([...selectedInterests, interest]);
+      }
+  };
+
+    const toggleTendency = (tendency) => {
+      if (selectedTendency === tendency) {
+          setSelectedTendency(''); // 이미 선택된 성향을 다시 클릭하면 해제
+      } else {
+          setSelectedTendency(tendency); // 아니라면 선택
+      }
+  };
 
     const openBottomSheet = () => {
         modalizeRef.current?.open();
       };
+    const [challengeTitle, setChallengeTitle] = useState("친구와 함께");
+    const [challengeHashTag, setChallengeHashTag] = useState("#도전챌린지");
+  
+
+    const handleBellClick = () => {
+      setSelectedModalContent(selectedModalContent === 'default' ? 'bell' : 'default'); // Change the content of the modal
+
+      if (selectedModalContent === 'default') {
+        setChallengeTitle("알림 내역");
+        setChallengeHashTag("");
+      } else {
+        setChallengeTitle("친구와 함께");
+        setChallengeHashTag("#도전챌린지");
+      }
+      openBottomSheet();
+    }
+    const personClick = () => {
+      setSelectedModalContent(selectedModalContent === 'default' ? 'person' : 'default'); // Change the content of the modal
+
+      if (selectedModalContent === 'default') {
+        setChallengeTitle("프로필 수정");
+        setChallengeHashTag("");
+      } else {
+        setChallengeTitle("친구와 함께");
+        setChallengeHashTag("#도전챌린지");
+      }
+      openBottomSheet();
+    }
+
+    const renderModalContent = () => {
+      switch (selectedModalContent) {
+        case 'default':
+          return <MissionList />;
+        case 'bell':
+          return (
+            <View style={styles.imageContainer}>
+              <Image source={require('../images/alram1.png')} style={styles.modalImage} />
+              <Image source={require('../images/alram2.png')} style={styles.modalImage} />
+              <Image source={require('../images/alram3.png')} style={styles.modalImage} />
+            </View>
+          );
+        case 'person':
+          return <View style={{ flex: 1, alignItems: 'center', backgroundColor: '#ffffff' }}>
+            <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 18, color: '#25282B',right:140, marginTop:10}}>
+              <Text>닉네임</Text>
+            </Text>
+            <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 13, color: '#D3D3D3',left:140}}>
+              <Text>0/50</Text>
+            </Text>
+          
+          <TextInput
+            style={styles.textInput}
+            placeholder="수정할 닉네임을 입력하세요"
+          />
+
+          <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 18, color: '#25282B',right:130, marginTop:20}}>
+            <Text>관심분야</Text>
+            </Text>
+            
+          <FlatList
+          key="interests"
+          data={interests}
+          horizontal={true}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              style={[
+                styles.button,
+                selectedInterests.includes(item) ? styles.selected : {}
+                     ]}
+                      onPress={() => toggleInterest(item)}
+                >
+                <Text
+                  style={[
+                    styles.selecttext,
+                    selectedInterests.includes(item) ? styles.selectedtext : {}
+                          ]}
+                        >
+                        {item}
+                  </Text>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item}
+            />
+          <FlatList
+          key="tendency"
+          style={{marginTop:200, }}
+          data={tendency}
+          horizontal={true}
+          renderItem={({ item }) => (
+              <TouchableOpacity
+                  style={[
+                      styles.buttonTendency,
+                      selectedTendency === item ? styles.selected : {}
+                  ]}
+                  onPress={() => toggleTendency(item)}
+              >
+                  <Text
+                      style={[
+                          styles.tendencytext,
+                          selectedTendency === item ? styles.selectedtext : {}
+                      ]}
+                  >
+                      {item}
+                  </Text>
+              </TouchableOpacity>
+          )}
+          keyExtractor={item => item}
+      />
+      </View>;
+        default:
+          return <MissionList/>;
+      }
+    }
 
     return (
         <View style={styles.container}>
+                      <BasicModal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+                isVisible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onConfirm={() => {
+                    navigation.replace('MatchingFilter');
+                    setModalVisible(false);
+                }}
+            >
+            </BasicModal>
           <View style={styles.header}>
           </View>
           <View style={styles.greetingBox}>
-            <Image source={require('../images/bell_click.png')} style={styles.alram} />
-            <Image source={require('../images/person.png')} style={styles.person} />
+            <TouchableOpacity style={{flex:1}} onPress={handleBellClick}>
+              <Image source={require('../images/bell_click.png')} style={styles.alram} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={personClick}>
+              <Image source={require('../images/person.png')} style={styles.person} />
+            </TouchableOpacity>
             <Image source={require('../images/Rectangle.png')} style={styles.iconWrapper} />
             <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 18, color: 'black', marginTop: '1%'}}>
               <Text>안녕하세요! <Text style={styles.boldText}>귀여운 다은님</Text></Text>
@@ -65,18 +203,15 @@ export default function App() {
             </View>
           </View>
           <Modalize ref={modalizeRef}
-           alwaysOpen={200}
+           alwaysOpen={180}
            modalHeight={600}
            modalStyle={{ borderTopLeftRadius: 45, borderTopRightRadius: 45 }} >
+        
         <View style={styles.challengeHeader}>
-        <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 23, color: 'black', marginTop: '1%', marginLeft: '3%'}}>
-          <Text style={styles.challengeTitle}>친구와 함께</Text>
-        </Text>
-        <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 23, color: 'black', marginTop: '1%', marginLeft: '3%'}}>
-          <Text style={styles.challengeHashTag}>#도전챌린지</Text>
-        </Text>
+          <Text style={styles.challengeTitle}>{challengeTitle}</Text> 
+          <Text style={styles.challengeHashTag}>{challengeHashTag}</Text>
         </View>
-        <MissionList />
+        {renderModalContent()}
       </Modalize>
     </View>
   );
@@ -91,38 +226,43 @@ function MissionList() {
 
   return (
     <>
-      <FlatList 
-        data={missions}
-        renderItem={({ item }) => (
-          <View style={styles.missionItem}>
-            <Image source={item.icon} style={styles.challengeIcon} />
-            <View style={{ marginLeft: '6%', marginTop: '1%'}}>
-              <Text style={{fontFamily: 'Pretendard-SemiBold', fontSize: 14 ,color: '#3B3B3B',marginBottom:'3%'}}>
-                <Text>{item.title}</Text>
-              </Text>
-              <Text style={{fontFamily: 'Pretendard-ExtraBold',fontSize: 18 ,color: '#5165B2'}}>
-                <Text>{item.point}</Text>
-              </Text>
+    <FlatList 
+          data={missions}
+          renderItem={({ item }) => (
+            <View style={styles.missionItem}>
+              <Image source={item.icon} style={styles.challengeIcon} />
+              <View style={{ marginLeft: '6%', marginTop: '1%'}}>
+                <Text style={{fontFamily: 'Pretendard-SemiBold', fontSize: 14 ,color: '#3B3B3B',marginBottom:'3%'}}>
+                  {item.title}
+                </Text>
+                <Text style={{fontFamily: 'Pretendard-ExtraBold',fontSize: 18 ,color: '#5165B2'}}>
+                  {item.point}
+                </Text>
+              </View>
+              <View style={styles.button}>
+                <Text style={styles.buttonText} onPress={() => setModalVisible(true)}>보상받기</Text>
+              </View>
             </View>
-            <View style={styles.button}>
-              <Text style={styles.buttonText} onPress={handleRewardPress}>보상받기</Text>
-            </View>
-          </View>
-        )}
-        keyExtractor={item => item.id}
-      />
+          )}
+          keyExtractor={item => item.id}
+          nestedScrollEnabled={true}
+        />
 
       {modalVisible && (
-        <Modal transparent={true} animationType="slide" visible={modalVisible}>
-          <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-              <Text style={styles.modalMessage}>보상이 지급되었습니다!</Text>
-              <TouchableOpacity style={styles.modalButton} onPress={() => setModalVisible(false)}>
-                <Text>닫기</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </Modal>
+        <BasicModal
+            animationType="fade"
+            title='보상이 지급되었습니다!'
+            confirmButtonText = "완료"
+            cancelButtonText = "닫기"
+            transparent={true}
+            visible={modalVisible}
+            isVisible={modalVisible}
+            onClose={() => setModalVisible(false)}
+            onConfirm={() => {
+                setModalVisible(false);
+            }}
+        >
+        </BasicModal>
       )}
     </>
   );
@@ -141,7 +281,7 @@ const styles = StyleSheet.create({
     },
     boldText: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontFamily: 'Pretendard-Bold',
       },
     greetingBox: {
       marginTop: 55,
@@ -222,7 +362,9 @@ const styles = StyleSheet.create({
       challengeTitle: {
         fontSize: 20,
         fontWeight: 'bold',
-        left: 10
+        left: 10,
+        marginBottom: 3,
+        marginTop:10
       },
       challengeHashTag: {
         fontSize: 20,
@@ -250,15 +392,15 @@ const styles = StyleSheet.create({
       },
       alram: {
       position: 'absolute',
-      right: '4%',  
-      top: '50%', 
+      right: '0%',
+      marginTop: 5,
       width: 33, 
       height: 34, 
     },
     person: {
         position: 'absolute', 
-        right: 50,  
-        top: '55%',
+        right: 35, 
+        marginTop: 7,
         width: 30,  
         height: 30, 
       },
@@ -315,5 +457,53 @@ const styles = StyleSheet.create({
     modalButton: {
       alignSelf: 'flex-end',
     },
-
+    imageContainer: {
+      flexDirection: 'column',
+      alignItems: 'center'
+    },
+    modalImage: {
+      width: '95%',       // Set the width as per your requirements
+      height: '80%',      // Set the height as per your requirements
+      resizeMode: 'contain',
+      marginBottom: '-3%'
+    },
+    buttonTendency: {
+      width: 155,
+      height: 56,
+      marginBottom: 12,
+      marginHorizontal:10,
+      backgroundColor: 'white',
+      borderColor: '#E8E6EA',
+      borderWidth:1,
+      borderRadius: 10,
+      alignItems: 'center',
+      justifyContent: 'center',
+  },
+  selectedtext: {
+    color: 'white',
+  },
+  selected: {
+    backgroundColor: '#5782F1',
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 0.5,
+      } 
+    },
+    textInput: {
+      width: 338,
+      height: 53,
+      borderColor: '#EEF3FF',
+      backgroundColor: '#EEF3FF',
+      marginTop: 20,
+      paddingHorizontal: 10,
+      borderRadius: 10
+    },
+    selecttext:{
+      flex:1,
+      fontFamily: 'Pretendard-SemiBold',
+      fontSize: 14,
+      textAlign: 'center',
+      right: 12
+  },
   });

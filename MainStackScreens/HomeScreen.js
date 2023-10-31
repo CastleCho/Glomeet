@@ -2,9 +2,9 @@ import React, { useRef,useState } from 'react';
 import {StyleSheet, Text, View, Image, FlatList,TextInput,TouchableOpacity} from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import BasicModal from '../Styles/BasicModal';
-import BasicButton from '../Styles/BasicButton';
+
 import alramicon from '../images/alramicon.png'
-import profileicon from '../images/profileicon.png'
+
 const missions = [
     { id: '1', title: '오늘의 매칭하고', point: '300P 즉시 받기',icon: require('../images/bell.png')},
     { id: '2', title: '채팅 3번하고', point: '100P 즉시 받기', icon: require('../images/thumb.png')},
@@ -20,24 +20,9 @@ export default function App() {
     const [selectedModalContent, setSelectedModalContent] = useState(); // default or other
     const tendency = ['외향적', '내향적'];
     const interests = ['언어', '음식','운동','문화','게임','여행'];
-    const [selectedTendency, setSelectedTendency] = useState('');
-    const [selectedInterests, setSelectedInterests] = useState([]);
+    const [isSelected, setIsSelected] = useState(false); // 알람 버튼의 선택 상태
 
-    const toggleInterest = interest => {
-      if (selectedInterests.includes(interest)) {
-          setSelectedInterests(selectedInterests.filter(item => item !== interest));
-      } else {
-          setSelectedInterests([...selectedInterests, interest]);
-      }
-  };
 
-    const toggleTendency = (tendency) => {
-      if (selectedTendency === tendency) {
-          setSelectedTendency(''); // 이미 선택된 성향을 다시 클릭하면 해제
-      } else {
-          setSelectedTendency(tendency); // 아니라면 선택
-      }
-  };
 
     const openBottomSheet = () => {
         modalizeRef.current?.open();
@@ -47,6 +32,8 @@ export default function App() {
   
 
     const handleBellClick = () => {
+      setIsSelected(!isSelected); // 선택 상태를 토글
+   
       setSelectedModalContent(selectedModalContent === 'default' ? 'bell' : 'default'); // Change the content of the modal
 
       if (selectedModalContent === 'default') {
@@ -171,18 +158,10 @@ export default function App() {
               </Text>
             </View>
             <View style={styles.buttonbox}>
-            <TouchableOpacity style={styles.selectedicon} onPress={handleBellClick}>
+            <TouchableOpacity style={[styles.selectedicon, isSelected && styles.icon]} onPress={handleBellClick}>
               <Image source={alramicon} style={styles.alram}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.selectedicon} onPress={personClick}>
-              <Image source={profileicon} style={styles.person}/>
-            </TouchableOpacity>
             </View>
-
-            
-            
-            
-            {/* 통화 및 메시지 아이콘 */}
           </View>
           <Image source={require('../images/avatar.png')} style={styles.avatar} />
           <Image source={require('../images/background.png')} style={styles.backgroundImage} />
@@ -294,18 +273,24 @@ const styles = StyleSheet.create({
     buttonbox: {
       marginLeft: 60,
       flexDirection: 'row',
-      borderRadius: 20,
-      height: 40,
-      width: 74,
+      borderRadius: 50,
+      height: 50,
+      width: 50,
       backgroundColor: '#E5E5E5',
       justifyContent: 'center', 
       alignItems: 'center'
     },
+    icon: {
+      width:46,
+      height:46,
+      justifyContent: 'center', 
+      alignItems: 'center' 
+    },
     selectedicon: {
       borderRadius:50, 
       backgroundColor:'white', 
-      width:34,
-      height:34,
+      width:46,
+      height:46,
       borderWidth: 2, 
       borderColor:'#4C7EFD', 
       justifyContent: 'center', 
@@ -408,8 +393,8 @@ const styles = StyleSheet.create({
         marginTop: 20,
       },
       alram: {
-      width: 20, 
-      height: 20, 
+      width: 24, 
+      height: 24, 
     },
     person: {
         width: 20,  

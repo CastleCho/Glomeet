@@ -6,7 +6,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         
         alignItems: 'center',
-      },
+    },
     button: {
         marginHorizontal: '5%',
         width: '90%',
@@ -16,13 +16,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 52,
         marginVertical:'3%'
-
+    },
+    selectedButton: {
+        backgroundColor: 'blue',
     },
     buttonText: {
         fontFamily: 'Pretendard-Bold',
         color: '#ffffff',
         fontSize: 18,
-      },
+    },
     notice: {
         margin: '3%',
         justifyContent: 'center', 
@@ -45,7 +47,7 @@ const styles = StyleSheet.create({
         elevation: 5, // Android에서도 동작하게 하기 위한 속성
         justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
         alignItems: 'center',
-      },
+    },
     navtext:{
         fontFamily: 'Pretendard-Regular',
         fontSize: 12,
@@ -68,7 +70,7 @@ const styles = StyleSheet.create({
         borderRadius:20,
         justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
         alignItems: 'center',
-      },
+    },
     chatbutton:{
         width:281, 
         height:38, 
@@ -87,8 +89,11 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 20,
-      }
-    
+    },
+    activityIndicator: {
+        alignItems: 'center',
+        height: 80,
+    },
 });
 
 export default styles;

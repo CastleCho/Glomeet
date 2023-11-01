@@ -3,6 +3,7 @@ import ReadNameScreen from '../OnboardingStackScreens/ReadNameScreen';
 import ReadHobbyScreen from '../OnboardingStackScreens/ReadHobbyScreen';
 import ReadContinentScreen from '../OnboardingStackScreens/ReadContinentScreen';
 import ReadTendencyScreen from '../OnboardingStackScreens/ReadTendencyScreen';
+import StartScreen from '../OnboardingStackScreens/StartScreen';
 
 const Stack = createStackNavigator();
 
@@ -12,7 +13,8 @@ const OnboardingStackScreen = () => {
             <Stack.Screen name="ReadNameScreen" component={ReadNameScreen} options = {{headerShown : false}} />
             <Stack.Screen name="ReadHobbyScreen" component={ReadHobbyScreen} options = {{headerShown : false}} />
             <Stack.Screen name="ReadContinentScreen" component={ReadContinentScreen} options = {{headerShown : false}} />
-            <Stack.Screen name="ReadTendencyScreen" component={ReadTendencyScreen} options = {{headerShown : false}} />         
+            <Stack.Screen name="ReadTendencyScreen" component={ReadTendencyScreen} options = {{headerShown : false}} />
+            <Stack.Screen name="StartScreen" component={StartScreen} options = {{headerShown : false}} />
         </Stack.Navigator>
     )
 }

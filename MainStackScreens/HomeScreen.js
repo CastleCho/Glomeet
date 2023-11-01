@@ -2,7 +2,8 @@ import React, { useRef,useState } from 'react';
 import {StyleSheet, Text, View, Image, FlatList,TextInput,TouchableOpacity} from 'react-native';
 import { Modalize } from 'react-native-modalize';
 import BasicModal from '../Styles/BasicModal';
-
+import { BlurView } from "@react-native-community/blur";
+import LinearGradient from 'react-native-linear-gradient';
 import alramicon from '../images/alramicon.png'
 
 const missions = [
@@ -15,57 +16,10 @@ const missions = [
 ];
 
 export default function App() {
-    const modalizeRef = useRef(null);
-    const [selectedModalContent, setSelectedModalContent] = useState(); // default or other
-    const tendency = ['외향적', '내향적'];
-    const interests = ['언어', '음식','운동','문화','게임','여행'];
-    const [isSelected, setIsSelected] = useState(false); // 알람 버튼의 선택 상태
-
-
-
-    const openBottomSheet = () => {
-        modalizeRef.current?.open();
-      };
-    const [challengeTitle, setChallengeTitle] = useState("친구와 함께");
-    const [challengeHashTag, setChallengeHashTag] = useState("#도전챌린지");
-  
-
-    const handleBellClick = () => {
-      setIsSelected(!isSelected); // 선택 상태를 토글
-   
-      setSelectedModalContent(selectedModalContent === 'default' ? 'bell' : 'default'); // Change the content of the modal
-
-      if (selectedModalContent === 'default') {
-        setChallengeTitle("알림 내역");
-        setChallengeHashTag("");
-      } else {
-        setChallengeTitle("친구와 함께");
-        setChallengeHashTag("#도전챌린지");
-      }
-      openBottomSheet();
-    }
-
-    const renderModalContent = () => {
-      switch (selectedModalContent) {
-        case 'default':
-          return <MissionList />;
-        case 'bell':
-          return (
-            <View style={styles.imageContainer}>
-              <Image source={require('../images/alram1.png')} style={styles.modalImage} />
-              <Image source={require('../images/alram2.png')} style={styles.modalImage} />
-              <Image source={require('../images/alram3.png')} style={styles.modalImage} />
-            </View>
-          );
-        default:
-          return <MissionList/>;
-      }
-    }
+  const modalizeRef = useRef(null);
 
     return (
-        <View style={styles.container}>
-          <View style={styles.header}>
-          </View>
+      <View style={styles.container}>
           <View style={styles.greetingBox}>
             <View>
               <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 18, color: 'black', marginTop: '1%'}}>
@@ -76,103 +30,74 @@ export default function App() {
               </Text>
             </View>
             <View style={styles.buttonbox}>
-            <TouchableOpacity style={[styles.selectedicon, isSelected && styles.icon]} onPress={handleBellClick}>
+            <TouchableOpacity style={[styles.icon]}>
               <Image source={alramicon} style={styles.alram}/>
             </TouchableOpacity>
             </View>
           </View>
-          <Image source={require('../images/avatar.png')} style={styles.avatar} />
-          <Image source={require('../images/background.png')} style={styles.backgroundImage} />
-          <Image source={require('../images/Ellipse.png')} style={styles.ellipse} />
-  
+          <Image source={require('../images/Ellipse.png')} style={{position: 'absolute', width:393, height:594, zIndex: -1}}/>
+          <View style={{marginTop:28}} >
+          
+            <Image source={require('../images/profileimage.png')} style={styles.backgroundImage}/>         
+          </View>
           <View style={styles.pointContainer} >
             
             <View style={styles.pointBox}>
               <Text style={styles.pointText}>1,400P</Text>
-              <Text>보유 포인트</Text>
+              <Text style={styles.explainText}>보유 포인트</Text>
             </View>
+            <View style={{width:1.7, height:39, backgroundColor: '#EEEEEE', borderRadius: 10,}}/>
             <View style={styles.usageBox}>
-              <Text style={styles.usageText}>2개</Text>
-              <Text>참여중인 모임</Text>
+              <Text style={styles.pointText}>2개</Text>
+              <Text style={styles.explainText}>참여중인 모임</Text>
             </View>
           </View>
           <Modalize ref={modalizeRef}
-           alwaysOpen={180}
-           modalHeight={600}
-           modalStyle={{ borderTopLeftRadius: 45, borderTopRightRadius: 45 }} >
-        
-        <View style={styles.challengeHeader}>
-          <Text style={styles.challengeTitle}>{challengeTitle}</Text> 
-          <Text style={styles.challengeHashTag}>{challengeHashTag}</Text>
-        </View>
-        {renderModalContent()}
-      </Modalize>
-    </View>
-  );
+            alwaysOpen={240}
+            modalHeight={670}
+            modalStyle={{ borderTopLeftRadius: 45, borderTopRightRadius: 45 }} 
+          >
+            <View>
+              <Text style={styles.challengeTitle}>친구와 함께</Text> 
+              <Text style={styles.challengeHashTag}>#도전챌린지</Text>
+            </View>
+            <FlatList 
+              data={missions}
+              renderItem={({ item }) => (
+                <View style={styles.missionItem}>
+                  <Image source={item.icon} style={styles.challengeIcon} />
+                  <View style={{ marginLeft: '6%', marginTop: '1%'}}>
+                    <Text style={{fontFamily: 'Pretendard-SemiBold', fontSize: 14 ,color: '#3B3B3B',marginBottom:'3%'}}>
+                      {item.title}
+                    </Text>
+                    <Text style={{fontFamily: 'Pretendard-ExtraBold',fontSize: 18 ,color: '#5165B2'}}>
+                      {item.point}
+                    </Text>
+                  </View>
+                  <View style={[
+                    styles.button, 
+                    item.state !== "보상받기" ? {backgroundColor: '#9FA4B1'} : {}
+                  ]}>
+                    <Text style={styles.buttonText} onPress={() => setModalVisible(true)}>
+                      {item.state}
+                    </Text>
+                  </View>
+                </View>
+              )}
+              keyExtractor={item => item.id}
+            />
+          </Modalize>
+      </View>
+   );
 }
   
 
-function MissionList() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const handleRewardPress = () => {
-    setModalVisible(true);
-  };
-
-  return (
-    <>
-      <FlatList 
-        data={missions}
-        renderItem={({ item }) => (
-          <View style={styles.missionItem}>
-            <Image source={item.icon} style={styles.challengeIcon} />
-            <View style={{ marginLeft: '6%', marginTop: '1%'}}>
-              <Text style={{fontFamily: 'Pretendard-SemiBold', fontSize: 14 ,color: '#3B3B3B',marginBottom:'3%'}}>
-                {item.title}
-              </Text>
-              <Text style={{fontFamily: 'Pretendard-ExtraBold',fontSize: 18 ,color: '#5165B2'}}>
-                {item.point}
-              </Text>
-            </View>
-            <View style={[
-              styles.button, 
-              item.state !== "보상받기" ? {backgroundColor: '#9FA4B1'} : {}
-            ]}>
-              <Text style={styles.buttonText} onPress={() => setModalVisible(true)}>
-                {item.state}
-              </Text>
-            </View>
-          </View>
-        )}
-        keyExtractor={item => item.id}
-        nestedScrollEnabled={true}
-      />
-
-
-      {modalVisible && (
-        <BasicModal
-            animationType="fade"
-            title='보상이 지급되었습니다!'
-            confirmButtonText = "완료"
-            cancelButtonText = "닫기"
-            transparent={true}
-            visible={modalVisible}
-            isVisible={modalVisible}
-            onClose={() => setModalVisible(false)}
-            onConfirm={() => {
-                setModalVisible(false);
-            }}
-        >
-        </BasicModal>
-      )}
-    </>
-  );
-}
 
 const styles = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#5782F1',
-      padding: 20,
+      alignItems: 'center'
     },
     header: {
       flexDirection: 'row',
@@ -186,6 +111,7 @@ const styles = StyleSheet.create({
     greetingBox: {
       flexDirection: 'row',
       marginTop: 55,
+      width:343,
       height: 84,
       borderColor: 'white',
       borderWidth: 5,
@@ -220,26 +146,12 @@ const styles = StyleSheet.create({
       justifyContent: 'center', 
       alignItems: 'center' 
     },
-    avatar: {
-      width: 233,
-      height: 266,
-      borderRadius: 300,
-      marginTop: 30,
-      alignSelf: 'center',
-    },
     backgroundImage: {
         width: 430,       // 원하는 가로 크기를 설정합니다.
-        height: 210,      // 원하는 세로 크기를 설정합니다.
-        resizeMode: 'contain', // 이미지의 원래 비율을 유지하면서 크기를 조절합니다.
+        height: 266,      // 원하는 세로 크기를 설정합니다.
+        // 이미지의 원래 비율을 유지하면서 크기를 조절합니다.
     },
-    ellipse: {
-        position: 'absolute',
-        top: 100,
-        left: '0%',
-        width: '120%',       // 화면 전체 넓이로 설정합니다.
-        height: '60%',         // 원하는 세로 크기를 유지하거나 조절합니다.
-        zIndex: -1,          // 다른 요소들 뒤로 이미지를 보냅니다.
-    },
+   
     infoContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
@@ -252,38 +164,34 @@ const styles = StyleSheet.create({
       backgroundColor: 'white'
     },
     pointContainer: {
+        justifyContent: 'center', 
+        alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 20,
-        padding: 1,
-        borderWidth: 1,
-        borderColor: 'white',
+        marginTop: 30,
         borderRadius: 8,
         backgroundColor: 'white',
+        width:345,
+        height:68
       },
       pointBox: {
+        justifyContent: 'center',  
         alignItems: 'center',
-        padding: 10,
-        borderRadius: 10,
         flex: 0.48,
       },
       usageBox: {
+        justifyContent: 'center', 
         alignItems: 'center',
-        padding: 10,
-        borderRadius: 10,
         flex: 0.48,
       },
       pointText: {
-        fontSize: 24,
+        fontSize: 20,
         color: '#6E87E5',
-        padding: 3,
-        fontWeight: 'bold'
+        fontFamily: 'Pretendard-SemiBold'
       },
-      usageText: {
-        fontSize: 24,
-        color: '#6E87E5',
-        padding: 3,
-        fontWeight: 'bold'
+      explainText: {
+        fontSize: 12,
+        color: '#949698',
+        fontFamily: 'Pretendard-Medium'
       },
       challengeTitle: {
         fontSize: 20,

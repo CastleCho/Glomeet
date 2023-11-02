@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, ScrollView } from "react-native";
+import { View, Text, SafeAreaView, Image } from "react-native";
 import styles from '../Styles/Styles.js';
 import BasicButton from '../Styles/BasicButton.js'
 import logo from '../images/notice_1.png'

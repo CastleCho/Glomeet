@@ -9,7 +9,6 @@ import { View, Text, SafeAreaView, Image, ScrollView } from "react-native";
 import backicon from '../images/backicon.png';
 const Stack = createStackNavigator();
 
-
 const MatchingStackScreen = ({ navigation, route }) => {
     React.useLayoutEffect(() => {
         const routeName =

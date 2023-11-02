@@ -13,6 +13,13 @@ const ReadHobbyScreen = ({navigation}) => {
     return(
         <SafeAreaView>
             <View>
+                <View style={{alignItems: 'center'}}>
+                    <Image source={require('../images/2.png')} style={{width: 337, height:2.4, marginTop: 10, marginBottom: 30}} />
+                </View>
+
+                <Text>
+                    당신의 관심사는 무엇인가요?
+                </Text>
                 <Text>
                     Choose one option for now. You can explore others later.
                 </Text>

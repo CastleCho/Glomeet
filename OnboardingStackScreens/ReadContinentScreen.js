@@ -1,5 +1,5 @@
-import { SafeAreaView, View, Text } from "react-native";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { SafeAreaView, View, StyleSheet, Image, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from '../Styles/Styles';
 
@@ -14,9 +14,62 @@ const ReadContinentScreen = ({navigation}) => {
     return(
         <SafeAreaView>
             <View>
-                <Text>
-                    대륙 받는 스크린
-                </Text>
+                <View style={{alignItems: 'center'}}>
+                    <Image source={require('../images/1.png')} style={{width: 337, height:2.4, marginTop: 10, marginBottom: 30}} />
+                </View>
+
+                <View style={{alignItems: 'center', marginBottom: 20, width: 327}}>
+                    <Text style={{fontSize: 20, marginBottom: 20}}>
+                        당신은 어느 대륙 사람인가요?
+                    </Text>
+                    
+                    <Text style={{fontSize: 20}}>
+                        Choose one option for now. You can explore others later.
+                    </Text>
+                </View>
+
+                <TouchableOpacity
+                    style={[styles.button, selectedButton === 'Asia' ? styles.selectedButton : null]}
+                    onPress={() => setSelectedButton('Asia')}
+                >
+                    <Text style={styles.buttonText}>Asia</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[styles.button, selectedButton === 'Europe' ? styles.selectedButton : null]}
+                    onPress={() => setSelectedButton('Europe')}
+                >
+                    <Text style={styles.buttonText}>Europe</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[styles.button, selectedButton === 'North America' ? styles.selectedButton : null]}
+                    onPress={() => setSelectedButton('North America')}
+                >
+                    <Text style={styles.buttonText}>North America</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[styles.button, selectedButton === 'South America' ? styles.selectedButton : null]}
+                    onPress={() => setSelectedButton('South America')}
+                >
+                    <Text style={styles.buttonText}>South America</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[styles.button, selectedButton === 'Oceania' ? styles.selectedButton : null]}
+                    onPress={() => setSelectedButton('Oceania')}
+                >
+                    <Text style={styles.buttonText}>Oceania</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    style={[styles.button, selectedButton === 'Africa' ? styles.selectedButton : null]}
+                    onPress={() => setSelectedButton('Africa')}
+                >
+                    <Text style={styles.buttonText}>Africa</Text>
+                </TouchableOpacity>
+
             </View>
 
             <TouchableOpacity

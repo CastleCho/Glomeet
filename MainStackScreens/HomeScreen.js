@@ -16,10 +16,10 @@ const missions = [
 
 export default function App() {
     const modalizeRef = useRef(null);
-    const [selectedModalContent, setSelectedModalContent] = useState(); // default or other
+    const [selectedModalContent, setSelectedModalContent] = useState();
     const tendency = ['외향적', '내향적'];
     const interests = ['언어', '음식','운동','문화','게임','여행'];
-    const [isSelected, setIsSelected] = useState(false); // 알람 버튼의 선택 상태
+    const [isSelected, setIsSelected] = useState(false);
 
 
 

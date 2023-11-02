@@ -6,9 +6,9 @@ import group_main from '../images/group_main.png'
 import tennis_group from '../images/tennis_group.png';
 import circle_add from '../images/circle_add.png';
 import heart from '../images/heart.png'
+import star from '../images/star.png'
 
-
-const MeetingScreen = () =>{
+const MeetingScreen = ({navigation}) =>{
     const category = ['ALL', '운동', '여행', '게임', '문화', '언어'];
     const when= ['최신순', '조회수', '추천순'];
     const [selectedTendency, setSelectedTendency] = useState('');
@@ -27,10 +27,10 @@ const MeetingScreen = () =>{
                     style={styles.searchBar} 
                     placeholder="Search..."
             />
-            <Text style={{fontFamily: 'Pretendard-SemiBold', fontSize: 16, color: '#000000', left: 25, top:10}}>카테고리</Text>
+            <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000', left: 25, top:10}}>카테고리</Text>
             <FlatList
                     key="category"
-                    style={{marginTop:15, }}
+                    style={{marginTop:10, marginBottom: 5 }}
                     data={category}
                     horizontal={true}
                     renderItem={({ item }) => (
@@ -59,16 +59,21 @@ const MeetingScreen = () =>{
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image source={circle_add} style={{ width: 16, height: 16, left: 290, marginTop: 10 }} /> 
-                <Text style={{fontFamily: 'Pretendard-SemiBold', fontSize: 16, color: '#000000', marginLeft: 300, marginTop: 10}}>
+                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000', marginLeft: 300, marginTop: 10}}>
                     등록하기
                 </Text>
             </View>
 
             <FlatList
                 key="when"
-                style={{ marginTop: 10, marginBottom: -20 }}
+                style={{ marginTop: 3 }}
                 data={when}
                 horizontal={true}
+                ListHeaderComponent={
+                    <Text style={{ fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000', left: 15, marginTop: 8}}>
+                        총 10개
+                    </Text>
+                }
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         style={[
@@ -89,13 +94,40 @@ const MeetingScreen = () =>{
                 )}
                 keyExtractor={item => item}
             />
-        <Text style={{ fontFamily: 'Pretendard-SemiBold', fontSize: 16, color: '#000000', left: 15, marginBottom: 10}}>
-                총 10개
-            </Text>
             <View style={{ flexDirection: 'row' }}>
-                <Image source={tennis_group} style={{width: 176, height: 164, borderRadius: 10, marginLeft: 10,}} />
-                <Image source={pingpong} style={{width: 175, height: 145, borderRadius: 10, marginLeft: 15,}} />
+                <View style={styles.itemContainer}>
+                <TouchableOpacity onPress={() => navigation.navigate('MeetingDetailScreen')}>
+                    <View style={styles.tennisImageContainer}>
+                        <Image source={tennis_group} style={styles.imageStyle} />
+                        <Image source={heart} style={styles.overlayIcon} />
+                    </View>
+                </TouchableOpacity>
+                    <View style={styles.textContainer}>
+                        <Text style={styles.title}>Tennis CLUB</Text>
+                        <Text style={styles.date}>10.5일 15시</Text>
+                        <Text style={styles.location}>학교 테니스 코트</Text>
+                        <View style={styles.participantRow}>
+                            <Image source={star} style={styles.participantImage} />
+                            <Text style={styles.star}>2/4</Text>
+                        </View>
+                    </View>
+                </View>
+
+                <View style={styles.itemContainer}>
+                    <Image source={pingpong} style={styles.imageStyle} />
+                    <View style={styles.textContainer}>
+                        {/* 이 부분은 핑퐁 그룹의 정보를 위한 예시입니다. 내용을 원하는대로 수정하실 수 있습니다. */}
+                        <Text style={styles.title}>탁구 연습</Text>
+                        <Text style={styles.date}>10.4일 9시</Text>
+                        <Text style={styles.location}>대강당</Text>
+                        <View style={styles.participantRow}>
+                            <Image source={star} style={styles.participantImage} />
+                            <Text style={styles.star}>3/4</Text>
+                        </View>
+                    </View>
+                </View>
             </View>
+        
         </SafeAreaView>
     )
 }

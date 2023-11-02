@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Modal, StyleSheet, Text } from "react-native";
+import { SafeAreaView, View, Image, Modal, StyleSheet, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 // import styles from '../Styles/Styles';
 // import BasicModal from '../Styles/BasicModal';
@@ -14,6 +14,10 @@ const ReadTendencyScreen = ({navigation}) => {
     return(
         <SafeAreaView>
             <View>
+                
+                <View style={{alignItems: 'center'}}>
+                    <Image source={require('../images/3.png')} style={{width: 337, height:2.4, marginTop: 10, marginBottom: 30}} />
+                </View>
 
                 <Text>
                     당신의 성향은 무엇인가요?

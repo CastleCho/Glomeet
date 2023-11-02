@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
     selectedButton: {
         backgroundColor: 'blue',
     },
+    onboardingButton: {
+        backgroundColor: 'white',
+    },
     buttonText: {
         fontFamily: 'Pretendard-Bold',
         color: '#ffffff',

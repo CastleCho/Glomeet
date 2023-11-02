@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, StyleSheet, Text } from "react-native";
+import { SafeAreaView, View, Image, StyleSheet, Text } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from '../Styles/Styles';
 
@@ -13,10 +13,6 @@ const ReadHobbyScreen = ({navigation}) => {
     return(
         <SafeAreaView>
             <View>
-
-                <Text>
-                    당신의 관심사는 무엇인가요?
-                </Text>
                 <Text>
                     Choose one option for now. You can explore others later.
                 </Text>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, TextInput, Alert } from "react-native";
+import { SafeAreaView, View, Text, TextInput, Alert, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import styles from '../Styles/Styles';
 
@@ -10,74 +10,116 @@ const ReadNameScreen = ({navigation}) => {
     }
 
     const [selectedButton, setSelectedButton] = useState(null);  // 선택된 버튼의 상태를 null로 초기화
-    const [nickname, setNickname] = useState(''); // 상태 변수 설정
+    const [inputValue, setInputValue] = useState('');
+    const [showCheck, setShowCheck] = useState(false);
+
+    const handleChangeText = (text) => {
+        setInputValue(text);
+        if (text.length > 2) {
+            setShowCheck(true);
+        } else {
+            setShowCheck(false);
+        }
+    };
+
+    const renderCheckmark = (imageName) => {
+        if (selectedButton === imageName) {
+            return (
+                <View style={{position: 'absolute', bottom: 0, alignSelf: 'center',}}>
+                    <Image source={require('../images/check.png')} style={{width: 30, height: 30}} />
+                </View>
+            );
+        }
+        return null;
+    };
 
     return(
-        <SafeAreaView>
-            <View>
+        <SafeAreaView style={{backgroundColor: 'white'}}>
+            <View style={{alignItems: 'center'}}>
 
-                <Text>
-                    반가워요!
-                </Text>
-                
-                <Text>
-                    프로필 선택 후 이름을 입력해주세요
-                </Text>
+                <View style={{marginTop: 20, marginBottom: 30, alignItems: 'center'}}>
+                    <Text style={{fontSize: 20, marginBottom: 5}}>
+                        반가워요!
+                    </Text>
+                    
+                    <Text style={{fontSize: 20}}>
+                        프로필 선택 후 이름을 입력해주세요
+                    </Text>
+                </View>
 
-                <TouchableOpacity
-                    style={[styles.button, selectedButton === '프로필 사진1' ? styles.selectedButton : null]}
-                    onPress={() => setSelectedButton('프로필 사진1')}
-                >
-                    <Text style={styles.buttonText}>프로필 사진1</Text>
-                </TouchableOpacity>
+                <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                        style={[selectedButton === '프로필 사진1' ? styles.onboardingButton : null]}
+                        onPress={() => setSelectedButton('프로필 사진1')}
+                    >
+                        <Image source={require('../images/profile1.png')} style={{width: 150, height: 150, borderRadius: 40}} />
+                        {renderCheckmark('프로필 사진1')}
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={[styles.button, selectedButton === '프로필 사진2' ? styles.selectedButton : null]}
-                    onPress={() => setSelectedButton('프로필 사진2')}                
-                >
-                    <Text style={styles.buttonText}>프로필 사진2</Text>
-                </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[selectedButton === '프로필 사진2' ? styles.onboardingButton : null]}
+                        onPress={() => setSelectedButton('프로필 사진2')}                
+                    >
+                        <Image source={require('../images/profile2.png')} style={{width: 150, height: 150, borderRadius: 40}} />
+                        {renderCheckmark('프로필 사진2')}
+                    </TouchableOpacity>
+                </View>
 
-                <TouchableOpacity
-                    style={[styles.button, selectedButton === '프로필 사진3' ? styles.selectedButton : null]}
-                    onPress={() => setSelectedButton('프로필 사진3')}                
-                >
-                    <Text style={styles.buttonText}>프로필 사진3</Text>
-                </TouchableOpacity>
+                <View style={{flexDirection: 'row'}}>
+                    <TouchableOpacity
+                        style={[selectedButton === '프로필 사진3' ? styles.onboardingButton : null]}
+                        onPress={() => setSelectedButton('프로필 사진3')}                
+                    >
+                        <Image source={require('../images/profile3.png')} style={{width: 150, height: 150, borderRadius: 40}} />
+                        {renderCheckmark('프로필 사진3')}
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={[styles.button, selectedButton === '프로필 사진4' ? styles.selectedButton : null]}
-                    onPress={() => setSelectedButton('프로필 사진4')}                
-                >
-                    <Text style={styles.buttonText}>프로필 사진4</Text>
-                </TouchableOpacity>
-                
-                <Text>닉네임 생성</Text>
-                <TextInput
-                    placeholder="닉네임을 입력하세요"
-                    value={nickname}
-                    onChangeText={setNickname} // 입력된 값으로 상태 업데이트
-                />
+                    <TouchableOpacity
+                        style={[selectedButton === '프로필 사진4' ? styles.onboardingButton : null]}
+                        onPress={() => setSelectedButton('프로필 사진4')}                
+                    >
+                        <Image source={require('../images/profile4.png')} style={{width: 150, height: 150, borderRadius: 40}} />
+                        {renderCheckmark('프로필 사진4')}
+                    </TouchableOpacity>
+                </View>
+            
+                <View style={{marginTop: 30, alignItems: 'center', marginBottom: 100}}>
+
+                    <TextInput
+                        placeholder="닉네임을 입력하세요"
+                        value={inputValue}
+                        onChangeText={handleChangeText} // 입력된 값으로 상태 업데이트
+                        style={{width: 200, height: 50, borderBottomWidth: 1, padding: 10}}
+                    />
+                    {showCheck && (
+                        <View style={{alignItems: 'center', marginTop: 10}}>
+                            <Image source={require('../images/check.png')} style={{width: 20, height: 20, marginBottom: 10}} />
+                            <Text style={{color: '#B9B9B9'}}>사용하실 수 있는 닉네임입니다.</Text>
+                        </View>
+                    )}
+                </View>
 
             </View>
 
-            <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                    if (!selectedButton) {
-                        Alert.alert('실패', '프로필을 골라주세요.'); // 경고 메시지 표시
-                        return;
-                    } else if (!nickname.trim()) {
-                        Alert.alert('실패', '닉네임을 입력하세요'); // 경고 메시지 표시
-                        return;
-                    } else {
-                        handleNextPagePress()
-                    }
-                }}
-                // onPress={handleOnPress}            
-            >
-                <Text style={styles.buttonText}>다음으로 넘어가기</Text>
-            </TouchableOpacity>
+            <View style={{backgroundColor: 'white'}}>
+                <TouchableOpacity
+                    style={[styles.button, { shadowColor: '#000', shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.5, shadowRadius: 2, elevation: 5}]}
+                    onPress={() => {
+                        if (!selectedButton) {
+                            Alert.alert('실패', '프로필을 골라주세요.'); // 경고 메시지 표시
+                            return;
+                        } else if (!inputValue.trim()) {
+                            Alert.alert('실패', '닉네임을 입력하세요.'); // 경고 메시지 표시
+                            return;
+                        } else {
+                            handleNextPagePress()
+                        }
+                    }}
+                    // onPress={handleOnPress}            
+                >
+                    <Text style={styles.buttonText}>다음으로 넘어가기</Text>
+                </TouchableOpacity>
+            </View>
 
         </SafeAreaView>
     )

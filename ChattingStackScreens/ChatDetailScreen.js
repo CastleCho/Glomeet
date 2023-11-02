@@ -8,7 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const ChatDetailScreen = ({ route }) => {
+const ChatDetailScreen = ({ route, navigation }) => {
     const { chat } = route.params;
 
     const [messages, setMessages] = useState([]);
@@ -49,14 +49,22 @@ const ChatDetailScreen = ({ route }) => {
             console.error('Error saving message:', error);
         }
     };
-    
+
+
+
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, {backgroundColor: 'white'}]}>
             <View style={styles.container}>
 
-                    <View style={{alignItems: 'center', borderBottomWidth: 0.5, borderBottomColor: 'gray'}}>            
-                        <Text style={styles.chatName}>{chat.name}</Text>
+                <View style={{ borderBottomWidth: 0.5, flexDirection: 'row', borderBottomColor: 'gray'}}> 
+
+                    <View>
+                        <Text style={styles.chatName}>
+                            {chat.name}
+                        </Text>
                     </View>
+
+                </View> 
                     
                 <ScrollView style={styles.messagesContainer}>
 
@@ -138,6 +146,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     chatName: {
+        flexDirection: 'row',
         fontSize: 15,
         fontWeight: 'bold',
         marginBottom: 15,

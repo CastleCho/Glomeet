@@ -11,10 +11,10 @@ const WelcomeScreen = ({navigation}) => {
     return (
         <SafeAreaView>
             <View>
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 30, color: 'black', marginTop: '15%', marginLeft: '5%'}}>글로밋과 함께하는</Text>
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 30, color: 'black', marginTop: '5%', marginLeft: '5%'}}>글로벌 교류</Text>
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 30, color: 'black', marginTop: '60%', marginLeft: '5%'}}>오늘의 매칭을</Text>
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 30, color: 'black', marginTop: '5%', marginBottom: '20%', marginLeft: '5%'}}>만나러 가보아요!</Text>
+                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 35, color: 'black', marginTop: '15%', marginLeft: '7%'}}>글로밋과 함께하는</Text>
+                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 35, color: 'black', marginTop: '5%', marginLeft: '7%'}}>글로벌 교류</Text>
+                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 35, color: 'black', marginTop: '80%', marginLeft: '7%'}}>오늘의 매칭을</Text>
+                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 35, color: 'black', marginTop: '5%', marginLeft: '7%', marginBottom: '20%'}}>만나러 가보아요!</Text>
             </View>
             <View>
                 <TouchableOpacity

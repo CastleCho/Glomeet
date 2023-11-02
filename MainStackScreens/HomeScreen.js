@@ -1,23 +1,108 @@
 import React, { useRef,useState } from 'react';
 import {StyleSheet, Text, View, Image, FlatList,TextInput,TouchableOpacity} from 'react-native';
 import { Modalize } from 'react-native-modalize';
-import BasicModal from '../Styles/BasicModal';
-import { BlurView } from "@react-native-community/blur";
-import LinearGradient from 'react-native-linear-gradient';
-import alramicon from '../images/alramicon.png'
+import RewardModal from '../Styles/RewardModal';
+import alramicon from '../images/alramicon.png';
 
-const missions = [
+
+
+
+export default function App() {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [step, setStep] = useState('reward'); 
+  const onNextPress = () => {
+    if (step === 'reward') {
+        setStep('alarm');
+    } else {
+      setStep('reward'); // 다음으로 넘어가기를 누를 때 모달 표시
+    }
+}; 
+  const modalizeRef = useRef(null);
+  const dots = new Array(82).fill(0);
+  const missions = [
     { id: '1', title: '오늘의 매칭하고', point: '300P 즉시 받기', state:'보상받기',icon: require('../images/bell.png')},
     { id: '2', title: '채팅 3번하고', point: '100P 즉시 받기', state:'1/3',icon: require('../images/thumb.png')},
     { id: '3', title: '추가 매칭 3번하고', point: '100P 즉시 받기', state:'2/3', icon: require('../images/bucket-dynamic-color.png')},
     { id: '4', title: '모임 가입하고', point: '300P 즉시 받기', state:'2/3', icon: require('../images/camera.png')},
     { id: '5', title: '프로필 변경 2번하고', point: '300P 즉시 받기', state:'보상받기', icon: require('../images/golbang.png')},
     { id: '6', title: '등록한 모임 인원이 달성하면', point: '300P 즉시 받기', state:'보상받기', icon: require('../images/book.png')},
-];
-
-export default function App() {
-  const modalizeRef = useRef(null);
-
+  ];
+  
+  const renderMissionItem = ({ item }) => (
+    <View>
+      <RewardModal
+          animationType="fade"
+          transparent={true}
+          visible={modalVisible}
+          isVisible={modalVisible}
+          onConfirm={() => {
+              setModalVisible(false);
+          }}
+      >
+      </RewardModal>
+      <View style={{ flexDirection: 'row', alignSelf: 'center', }}>
+        {dots.map((_, index) => (
+            <View
+                key={index}
+                style={{
+                    width: 2,   // 도트의 넓이
+                    height: 1,  // 도트의 높이
+                    backgroundColor: '#B9B9B9',
+                    marginHorizontal: 1,  // 도트 사이의 간격
+                }}
+            />
+        ))}
+      </View>
+      <View style={styles.missionbar}>
+        <Image source={item.icon} style={styles.challengeIcon} />
+        <View style={{ flex: 1, marginLeft: 12 }}>
+          <Text style={{ fontFamily: 'Pretendard-Light', fontSize: 14, color: '#3B3B3B', marginBottom: 6 }}>
+            {item.title}
+          </Text>
+          <Text style={{ fontFamily: 'Pretendard-SemiBold', fontSize: 18, color: '#5165B2' }}>
+            {item.point}
+          </Text>
+        </View>
+        <TouchableOpacity
+          style={[
+            styles.rewardbutton,
+            item.state !== "보상받기" ? { backgroundColor: '#9FA4B1' } : {}
+          ]}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.rewardbuttonText}>
+            {item.state}
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
+  const alarms = [
+    { id: '1', title: '채팅 알림', point: 'James에게 채팅이 왔어요!', icon: require('../images/chatting.png'), date: '10월 4일 09:00'},
+    { id: '2', title: '채팅 알림', point: 'Tina에게 채팅이 왔어요!',  icon: require('../images/chatting.png'), date: '10월 4일 09:00'},
+    { id: '3', title: '모임 알림', point: '테니스 치실 분 모임이 하루 전이에요!', icon: require('../images/meeting.png'), date: '10월 4일 09:00'},
+  ];
+  const renderalarmItem = ({ item }) => (
+    <View>
+      <View style={styles.missionbar}>
+        <Image source={item.icon} style={{width: 30, height: 30}} />
+        <View style={{ flex: 1, marginLeft: 12 }}>
+          <View style={{flexDirection: 'row', alignItems: 'center', marginBottom: 6}} >
+            <Text style={{ fontFamily: 'Pretendard-Bold', fontSize: 18, color: '#5782F1' }}>
+              {item.title}
+            </Text>
+            <View style={{flex: 1}}/>
+            <Text style={{ fontFamily: 'Pretendard-Medium', fontSize: 12, color: '#A9A9A9' }}>
+              {item.date}
+            </Text>
+          </View>
+          <Text style={{ fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000' }}>
+            {item.point}
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
     return (
       <View style={styles.container}>
           <View style={styles.greetingBox}>
@@ -30,7 +115,7 @@ export default function App() {
               </Text>
             </View>
             <View style={styles.buttonbox}>
-            <TouchableOpacity style={[styles.icon]}>
+            <TouchableOpacity style={[styles.icon, step === 'reward' ? styles.icon : styles.selectedicon]} onPress={onNextPress}>
               <Image source={alramicon} style={styles.alram}/>
             </TouchableOpacity>
             </View>
@@ -53,40 +138,28 @@ export default function App() {
             </View>
           </View>
           <Modalize ref={modalizeRef}
-            alwaysOpen={240}
-            modalHeight={670}
-            modalStyle={{ borderTopLeftRadius: 45, borderTopRightRadius: 45 }} 
-          >
-            <View>
-              <Text style={styles.challengeTitle}>친구와 함께</Text> 
-              <Text style={styles.challengeHashTag}>#도전챌린지</Text>
-            </View>
-            <FlatList 
-              data={missions}
-              renderItem={({ item }) => (
-                <View style={styles.missionItem}>
-                  <Image source={item.icon} style={styles.challengeIcon} />
-                  <View style={{ marginLeft: '6%', marginTop: '1%'}}>
-                    <Text style={{fontFamily: 'Pretendard-SemiBold', fontSize: 14 ,color: '#3B3B3B',marginBottom:'3%'}}>
-                      {item.title}
-                    </Text>
-                    <Text style={{fontFamily: 'Pretendard-ExtraBold',fontSize: 18 ,color: '#5165B2'}}>
-                      {item.point}
-                    </Text>
-                  </View>
-                  <View style={[
-                    styles.button, 
-                    item.state !== "보상받기" ? {backgroundColor: '#9FA4B1'} : {}
-                  ]}>
-                    <Text style={styles.buttonText} onPress={() => setModalVisible(true)}>
-                      {item.state}
-                    </Text>
-                  </View>
+            flatListProps={{
+              ListHeaderComponent: () => ( step === 'reward' ? (
+                <View style={{marginTop:26, marginLeft: 40, marginBottom: 19}} > 
+                  <Text style={styles.modalTitle}>친구와 함께</Text> 
+                  <Text style={styles.modalHashTag}>#도전챌린지</Text>
                 </View>
-              )}
-              keyExtractor={item => item.id}
-            />
-          </Modalize>
+                ) : (
+                <View style={{marginTop:26, marginLeft: 40, marginBottom: 19}} > 
+                  <Text style={styles.modalTitle}>알림 내역</Text>
+                </View> 
+                )),
+
+              data: step === 'reward' ? missions : alarms,
+              renderItem:  step === 'reward' ? renderMissionItem : renderalarmItem,
+              keyExtractor: item => item.id,
+              showsVerticalScrollIndicator: false
+            }}
+            avoidKeyboardLikeIOS={true}
+            alwaysOpen={200}
+            modalHeight={590}
+            modalStyle={{ borderTopLeftRadius: 45, borderTopRightRadius: 45 }}
+          />
       </View>
    );
 }
@@ -193,24 +266,22 @@ const styles = StyleSheet.create({
         color: '#949698',
         fontFamily: 'Pretendard-Medium'
       },
-      challengeTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        left: 10,
-        marginBottom: 3,
-        marginTop:10
+      modalTitle: {
+        fontSize: 23,
+        fontFamily: 'Pretendard-Bold',
+        color: '#000'
       },
-      challengeHashTag: {
-        fontSize: 20,
-        fontWeight: 'bold',
+      modalHashTag: {
+        fontSize: 23,
+        fontFamily: 'Pretendard-Bold',
         color: '#5782F1',
-        left: 10
       },
-      missionItem: {
+      missionbar: {
         flexDirection: 'row',  // 아이템의 중앙에 아이콘과 텍스트를 정렬
-        padding: 2,
-        borderBottomWidth: 1,
-        borderColor: '#eee',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 16,
+        marginHorizontal: 30
       },
       challengeHeader: {
         padding: 15,
@@ -241,12 +312,11 @@ const styles = StyleSheet.create({
         zIndex: -1, 
     },
     challengeIcon: {
-        width: 50, // 원하는 크기에 따라 수정
-        height: 50, // 원하는 크기에 따라 수정
-        marginLeft: '3%',
+        width: 48, // 원하는 크기에 따라 수정
+        height: 48, // 원하는 크기에 따라 수정
     },
-    button: {
-      width: 80,
+    rewardbutton: {
+      width: 90,
       height: 37,
       borderRadius: 10,
       backgroundColor: '#5782F1',
@@ -259,13 +329,11 @@ const styles = StyleSheet.create({
       },
       shadowOpacity: 0.25,
       shadowRadius: 4,
-      position: 'absolute',
-      marginLeft: '70%',
-      marginTop: '2%'
     },
-    buttonText: {
+    rewardbuttonText: {
+      fontFamily: 'Pretendard-SemiBold',
       color: 'white',
-      fontSize: 16,
+      fontSize: 15,
     },
     modalContainer: {
       ...StyleSheet.absoluteFillObject,

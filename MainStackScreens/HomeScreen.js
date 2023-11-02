@@ -107,10 +107,10 @@ export default function App() {
       <View style={styles.container}>
           <View style={styles.greetingBox}>
             <View>
-              <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 18, color: 'black', marginTop: '1%'}}>
+              <Text style={{fontFamily: 'Pretendard-Regular', fontSize: 18, color: 'black', marginTop: '1%'}}>
                 안녕하세요! 귀여운 다은님
               </Text> 
-              <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 12, color: 'black', marginTop: '1%'}}>
+              <Text style={{fontFamily: 'Pretendard-Regular', fontSize: 12, color: 'black', marginTop: '1%'}}>
                 오늘도 친구를 만나러 가볼까요?
               </Text>
             </View>
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
       pointText: {
         fontSize: 20,
         color: '#6E87E5',
-        fontFamily: 'Pretendard-SemiBold'
+        fontFamily: 'Pretendard-Medium'
       },
       explainText: {
         fontSize: 12,

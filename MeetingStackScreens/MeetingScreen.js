@@ -104,7 +104,7 @@ const MeetingScreen = ({navigation}) =>{
                         
             <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal:22, marginTop: 22}}>
                 <View style={{flex:1}}/>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('GoToRegistration')}>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('goToRegistration')}>
                     <Image source={circle_add} style={{ width: 20, height: 20}} /> 
                 
                     <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000'}}>

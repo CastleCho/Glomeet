@@ -57,18 +57,13 @@ const MatchingLoading = ({navigation}) => {
                 <Text style={styles.footerText}>
                 모임 일정이 가까워지면 PUSH 알림을 보내드립니다.{"\n"}
                 모임 내역은 
-                    <Text style={styles.linkText}>{'\u00A0'}홈 화면</Text>
-                에서 확인 가능합니다.
+                <TouchableOpacity onPress={goToHomeScreen}>
+                    <Text style={styles.linkText}>홈 화면</Text>
+                </TouchableOpacity>
+                에서 확인 가능합니다.'
                 </Text>
                 
             </View>
-
-            <BasicButton   
-                style={{width: 318}}
-                title="홈으로 돌아가기"
-                onPress={goToHomeScreen}
-            />
-
         </View>
             
     
@@ -186,6 +181,7 @@ const styles = StyleSheet.create({
         color: '#5782F1',
         fontFamily: 'Pretendard-Regular',
         fontSize:13,
+        textDecorationLine: 'underline'
     },
 });
 

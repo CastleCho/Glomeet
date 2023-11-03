@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native"
 import MeetingScreen from '../MeetingStackScreens/MeetingScreen';
 import MeetingDetailScreen from '../MeetingStackScreens/MeetingDetailScreen'
-import GoToRegistration from '../MeetingStackScreens/GoToRegistration';
+import goToRegistration from '../MeetingStackScreens/goToRegistration';
 import RegistrationComplete from '../MeetingStackScreens/RegistrationComplete'
 import {Image} from "react-native";
 import React from "react"
@@ -41,7 +41,7 @@ const MeetingStackScreen = ({ navigation, route }) => {
         >
             <Stack.Screen name="MeetingScreen" component={MeetingScreen} options={{headerShown: true}}/>
             <Stack.Screen name="MeetingDetailScreen" component={MeetingDetailScreen} options={{headerShown: true}}/>
-            <Stack.Screen name="GoToRegistration" component={GoToRegistration} options = {{headerShown : true}} />
+            <Stack.Screen name="goToRegistration" component={goToRegistration} options = {{headerShown : true}} />
             <Stack.Screen name="RegistrationComplete" component={RegistrationComplete} options = {{headerShown : true}} />
         </Stack.Navigator>
     );

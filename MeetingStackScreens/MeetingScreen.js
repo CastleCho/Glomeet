@@ -103,10 +103,13 @@ const MeetingScreen = ({navigation}) =>{
                         
             <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal:22, marginTop: 22}}>
                 <View style={{flex:1}}/>
-                <Image source={circle_add} style={{ width: 20, height: 20}} /> 
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000'}}>
-                    등록하기
-                </Text>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('goToRegistration')}>
+                    <Image source={circle_add} style={{ width: 20, height: 20}} /> 
+                
+                    <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000'}}>
+                        등록하기
+                    </Text>
+                </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'center', marginHorizontal: 20, marginTop: 10}}>
 

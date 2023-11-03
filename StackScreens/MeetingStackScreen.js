@@ -1,16 +1,16 @@
+
 import { createStackNavigator } from '@react-navigation/stack';
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native"
 import MeetingScreen from '../MeetingStackScreens/MeetingScreen';
 import MeetingDetailScreen from '../MeetingStackScreens/MeetingDetailScreen'
-import goToRegistration from '../MeetingStackScreens/goToRegistration';
-import RegistrationComplete from '../MeetingStackScreens/RegistrationComplete';
+import GoToRegistration from '../MeetingStackScreens/GoToRegistration';
+import RegistrationComplete from '../MeetingStackScreens/RegistrationComplete'
 import {Image} from "react-native";
 import React from "react"
 import backicon from '../images/backicon.png';
 
-
 const Stack = createStackNavigator();
-
+const dots = new Array(82).fill(0);
 
 
 const MeetingStackScreen = ({ navigation, route }) => {
@@ -25,12 +25,11 @@ const MeetingStackScreen = ({ navigation, route }) => {
         }
     }, [navigation, route]);
     return (
-        <Stack.Navigator 
-            initialRouteName="Meetingscreen"
+        <Stack.Navigator initialRouteName="MeetingScreen"
             screenOptions={{
                 headerBackImage: () => (
                     <Image source={backicon} style={{width:9, height:18, margin:10}}/>
-                  ),
+                ),
                 headerTitle: () => (
                     <Image
                     source={require('../images/logo_glomeet.png')}
@@ -40,12 +39,13 @@ const MeetingStackScreen = ({ navigation, route }) => {
                 headerTitleAlign: 'center',
             }}
         >
-            <Stack.Screen name="Meetingscreen" component={MeetingScreen} options = {{headerShown : true}} />
-            <Stack.Screen name="MeetingDetailScreen" component={MeetingDetailScreen} options = {{headerShown : true}} />
-            <Stack.Screen name="goToRegistration" component={goToRegistration} options = {{headerShown : true}} />
+            <Stack.Screen name="MeetingScreen" component={MeetingScreen} options={{headerShown: true}}/>
+            <Stack.Screen name="MeetingDetailScreen" component={MeetingDetailScreen} options={{headerShown: true}}/>
+            <Stack.Screen name="GoToRegistration" component={GoToRegistration} options = {{headerShown : true}} />
             <Stack.Screen name="RegistrationComplete" component={RegistrationComplete} options = {{headerShown : true}} />
         </Stack.Navigator>
     );
 }
 export default MeetingStackScreen;
+
 

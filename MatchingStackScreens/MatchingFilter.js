@@ -13,18 +13,18 @@ import shopping from '../images/shopping.png';
 import tennis from '../images/tennis.png';
 import yoga from '../images/viencharts.png';
 import voice from '../images/voice.png';
-import camera from '../images/camera.png';
+import cameraicon from '../images/cameraicon.png';
 import gamehandle from '../images/game-handle.png';
 import drink from '../images/goblet-full.png';
 import running from '../images/sport.png';
-import backicon from '../images/backicon.png';
+
 const MatchingFilter = ({ navigation }) => {
     const [selectedInterests, setSelectedInterests] = useState([]);
     const [selectedTendency, setSelectedTendency] = useState('');
     const [step, setStep] = useState('interests'); // 'interests' 또는 'tendency'
     const [modalVisible, setModalVisible] = useState(false);
     const interests = ['사진', '쇼핑', '노래방', '요가', '요리', '테니스', '러닝', '수영', '예술', '여행', '익스트림', '음악', '술', '게임'];
-    const icon = [camera, shopping, voice, yoga, noodles, tennis ,running, swimming, platte, trip, extreme, music, drink, gamehandle]
+    const icon = [cameraicon, shopping, voice, yoga, noodles, tennis ,running, swimming, platte, trip, extreme, music, drink, gamehandle]
     const tendency = ['외향적', '내향적', '상관없음'];
     const onNextPress = () => {
         if (step === 'interests') {

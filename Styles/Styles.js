@@ -411,9 +411,7 @@ const styles = StyleSheet.create({
     introduce:{
       width: 338,
       height: 93,
-      alignItems: 'center',
       backgroundColor: '#EEF3FF',
-      justifyContent: 'center',
       marginTop: 15,
       borderRadius: 10
     },

@@ -2,11 +2,12 @@ import React from 'react';
 import { View, StyleSheet,TouchableOpacity, Text, Image } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import complete from '../images/complete.png'
+import BasicButton from '../Styles/BasicButton.js';
 
 const MatchingLoading = ({navigation}) => {
 
-    const goToMeetingScreen = () => {
-        navigation.navigate('MeetingScreen');
+    const goToHomeScreen = () => {
+        navigation.navigate('HomeScreen');
     };
 
     return (
@@ -56,12 +57,18 @@ const MatchingLoading = ({navigation}) => {
                 <Text style={styles.footerText}>
                 모임 일정이 가까워지면 PUSH 알림을 보내드립니다.{"\n"}
                 모임 내역은 
-                <TouchableOpacity onPress={goToMeetingScreen}>
-                    <Text style={styles.linkText}>홈 화면</Text>
-                </TouchableOpacity>
+                    <Text style={styles.linkText}>{'\u00A0'}홈 화면</Text>
                 에서 확인 가능합니다.
-            </Text>
+                </Text>
+                
             </View>
+
+            <BasicButton   
+                style={{width: 318}}
+                title="홈으로 돌아가기"
+                onPress={goToHomeScreen}
+            />
+
         </View>
             
     
@@ -112,8 +119,9 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginTop: 20,
         marginBottom: 20,
-        fontFamily: 'pretendard-Bold',
+        fontFamily: 'Pretendard-Bold',
         textAlign: 'center',
+        color: '#25282B'
     },
     confirmButton: {
         backgroundColor: '#5782F1',
@@ -136,31 +144,32 @@ const styles = StyleSheet.create({
     rowContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        width: '90%',
+        width: 249,
         marginBottom: 15,
-        justifyContent: 'space-between',
+      
     },
     rowTitle: {
         fontSize: 15,
-        fontFamily: 'pretendard-Bold',
-
+        fontFamily: 'Pretendard-Bold',
+        color: '#25282B',
+        width: 77
     },
     rowContent: {
         fontSize: 15,
-        fontFamily: 'pretendard-Regular',
+        fontFamily: 'Pretendard-Regular',
         color: '#949698',
 
     },
     rowContentToggle: {
         fontSize: 12,
-        fontFamily: 'pretendard-Regular',
+        fontFamily: 'Pretendard-Regular',
         color:'#949698',
     },
     footerText: {
         fontSize: 13,
         color: '#767676',
         marginTop: 20,
-        fontFamily:'pretendard-Regular',
+        fontFamily:'Pretendard-Regular',
         textAlign: 'center',
         lineHeight: 20,
     },
@@ -175,10 +184,8 @@ const styles = StyleSheet.create({
     },
     linkText: {
         color: '#5782F1',
-        textDecorationLine: 'underline',
-        fontFamily: 'pretendard-Regular',
+        fontFamily: 'Pretendard-Regular',
         fontSize:13,
-        marginLeft: 2
     },
 });
 

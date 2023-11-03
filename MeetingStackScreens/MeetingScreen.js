@@ -18,7 +18,8 @@ const MeetingScreen = ({navigation}) =>{
         {id: '2', title: '탁구 연습', date: '10.4일 9시', place:'대강당',icon: pingpong, participants:'3/4'},
         {id: '3', title: '국내여행 모집', date: '10.6일 14시', place:'부산',icon: travel, participants:'1/4'},
         {id: '4', title: '롤 자유랭 팀 모집', date: '10.8일 19시', place:'E-Sports피시방',icon: gamegroup, participants:'3/5'},
-        ]
+        ];
+    
     const dots = new Array(58).fill(0);
     const [selectedTendency, setSelectedTendency] = useState('');
     const toggleTendency = (tendency) => {
@@ -103,7 +104,7 @@ const MeetingScreen = ({navigation}) =>{
                         
             <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal:22, marginTop: 22}}>
                 <View style={{flex:1}}/>
-                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('goToRegistration')}>
+                <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center'}} onPress={() => navigation.navigate('GoToRegistration')}>
                     <Image source={circle_add} style={{ width: 20, height: 20}} /> 
                 
                     <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000'}}>

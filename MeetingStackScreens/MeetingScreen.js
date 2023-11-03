@@ -59,9 +59,11 @@ const MeetingScreen = ({navigation}) =>{
             </View>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Image source={circle_add} style={{ width: 16, height: 16, left: 290, marginTop: 10 }} /> 
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000', marginLeft: 300, marginTop: 10}}>
-                    등록하기
-                </Text>
+                <TouchableOpacity onPress={() => navigation.navigate('goToRegistration')} style={{marginLeft: 300, marginTop: 10}}>
+                    <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000'}}>
+                        등록하기
+                    </Text>
+                </TouchableOpacity>
             </View>
 
             <FlatList
@@ -116,7 +118,6 @@ const MeetingScreen = ({navigation}) =>{
                 <View style={styles.itemContainer}>
                     <Image source={pingpong} style={styles.imageStyle} />
                     <View style={styles.textContainer}>
-                        {/* 이 부분은 핑퐁 그룹의 정보를 위한 예시입니다. 내용을 원하는대로 수정하실 수 있습니다. */}
                         <Text style={styles.title}>탁구 연습</Text>
                         <Text style={styles.date}>10.4일 9시</Text>
                         <Text style={styles.location}>대강당</Text>

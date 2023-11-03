@@ -397,6 +397,37 @@ const styles = StyleSheet.create({
       marginLeft: 10
 
     },
+    registration:{
+      width: 288,
+      height: 126,
+      alignItems: 'center',
+      borderWidth: 0.5,
+      borderColor: '#DCDCDC',
+      backgroundColor: '#F1F1F1',
+      justifyContent: 'center',
+    },
+    dashregistration:{
+      width: 303,
+      height: 143,
+      alignItems: 'center',
+      borderWidth: 1.5,
+      borderColor: '#DCDCDC',
+      backgroundColor: 'white',
+      justifyContent: 'center',
+      borderStyle: 'dashed',
+      borderRadius: 1.5,
+      marginTop: 30
+
+    },
+    introduce:{
+      width: 338,
+      height: 93,
+      alignItems: 'center',
+      backgroundColor: '#EEF3FF',
+      justifyContent: 'center',
+      marginTop: 15,
+      borderRadius: 10
+    },
 
         
 });

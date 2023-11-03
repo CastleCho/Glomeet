@@ -6,11 +6,20 @@ import group_main from '../images/group_main.png'
 import tennis_group from '../images/tennis_group.png';
 import circle_add from '../images/circle_add.png';
 import heart from '../images/heart.png'
-import star from '../images/star.png'
-
+import person from '../images/person.png'
+import search from '../images/Search.png'
+import travel from '../images/meetingtravel.png'
+import gamegroup from '../images/meetinggame.png'
 const MeetingScreen = ({navigation}) =>{
     const category = ['ALL', '운동', '여행', '게임', '문화', '언어'];
     const when= ['최신순', '조회수', '추천순'];
+    const meetgroup = [
+        {id: '1', title: 'Tennis CLUB', date: '10.5일 15시', place:'학교 테니스 코트',icon: tennis_group, participants:'2/4'},
+        {id: '2', title: '탁구 연습', date: '10.4일 9시', place:'대강당',icon: pingpong, participants:'3/4'},
+        {id: '3', title: '국내여행 모집', date: '10.6일 14시', place:'부산',icon: travel, participants:'1/4'},
+        {id: '4', title: '롤 자유랭 팀 모집', date: '10.8일 19시', place:'E-Sports피시방',icon: gamegroup, participants:'3/5'},
+        ]
+    const dots = new Array(58).fill(0);
     const [selectedTendency, setSelectedTendency] = useState('');
     const toggleTendency = (tendency) => {
         if (selectedTendency === tendency) {
@@ -19,18 +28,53 @@ const MeetingScreen = ({navigation}) =>{
             setSelectedTendency(tendency); // 아니라면 선택
         }
     };
-
+    const renderItem = ({ item }) => (
+        <View style={styles.itemContainer}>
+            <TouchableOpacity onPress={() => navigation.navigate('MeetingDetailScreen')}>
+                <View style={styles.tennisImageContainer}>
+                <Image source={item.icon} style={styles.imageStyle} />
+                </View>
+                <View style={styles.textContainer}>
+                    <Text style={styles.title}>{item.title}</Text>
+                    <Text style={styles.date}>{item.date}</Text>
+                    <View style={styles.locationbox}>
+                        <Text style={styles.location}>{item.place}</Text>
+                    </View>
+                    <View style={styles.participantRow}>
+                        <Image source={person} style={styles.participantImage} />
+                        <Text style={styles.person}>{item.participants}</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        </View>
+      );
     return(
         <SafeAreaView style= {styles.MeetingContainer}>
-            <View>
-            <TextInput 
-                    style={styles.searchBar} 
-                    placeholder="Search..."
-            />
-            <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000', left: 25, top:10}}>카테고리</Text>
-            <FlatList
+            
+            <View style={{borderRadius: 10 ,flexDirection: 'row', width: 350, height: 43, alignItems:'center', alignSelf: 'center', backgroundColor: '#F5F5F5'}}>
+                <Image source={search} style={{width:25, height: 25, marginLeft: 5}}/>
+                <TextInput style={{flex:1}}
+                        placeholder="Search..."
+                />
+            </View>
+            <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 18, color: '#000000', marginLeft:22, marginTop:15}}>카테고리</Text>
+            <View style={{alignItems: 'center'}}>
+                <View style={{ flexDirection: 'row', marginTop:15}}>
+                    {dots.map((_, index) => (
+                        <View
+                            key={index}
+                            style={{
+                                width: 3,   // 도트의 넓이
+                                height: 1,  // 도트의 높이
+                                backgroundColor: '#CACCCF',
+                                marginHorizontal: 1.5,  // 도트 사이의 간격
+                            }}
+                        />
+                    ))}
+                </View>
+                <FlatList
                     key="category"
-                    style={{marginTop:10, marginBottom: 5 }}
+                    style={{ marginTop: 10}}
                     data={category}
                     horizontal={true}
                     renderItem={({ item }) => (
@@ -52,81 +96,64 @@ const MeetingScreen = ({navigation}) =>{
                         </TouchableOpacity>
                     )}
                     keyExtractor={item => item}
-                />
-            <View style={styles.dottedBorder}>
-            </View>    
-            <Image source={group_main} style={{width: 342, height: 163, marginTop: 10, left: 22, borderRadius: 10}} />
-            </View>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Image source={circle_add} style={{ width: 16, height: 16, left: 290, marginTop: 10 }} /> 
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000', marginLeft: 300, marginTop: 10}}>
+                />  
+            </View>  
+            
+            <Image source={group_main} style={{width: 343, height: 163, alignSelf: 'center', marginTop: 10, borderRadius: 10}} />
+                        
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginHorizontal:22, marginTop: 22}}>
+                <View style={{flex:1}}/>
+                <Image source={circle_add} style={{ width: 20, height: 20}} /> 
+                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000'}}>
                     등록하기
                 </Text>
             </View>
+            <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:'center', marginHorizontal: 20, marginTop: 10}}>
 
-            <FlatList
-                key="when"
-                style={{ marginTop: 3 }}
-                data={when}
-                horizontal={true}
-                ListHeaderComponent={
-                    <Text style={{ fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000', left: 15, marginTop: 8}}>
-                        총 10개
-                    </Text>
-                }
-                renderItem={({ item }) => (
-                    <TouchableOpacity
-                        style={[
-                            styles.buttonwhen,
-                            selectedTendency === item ? styles.whenselected : {}
-                        ]}
-                        onPress={() => toggleTendency(item)}
-                    >
-                        <Text
-                            style={[
-                                styles.meetingtext,
-                                selectedTendency === item ? styles.meetingselectedtext : {}
-                            ]}
-                        >
-                            {item}
-                        </Text>
-                    </TouchableOpacity>
-                )}
-                keyExtractor={item => item}
-            />
-            <View style={{ flexDirection: 'row' }}>
-                <View style={styles.itemContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate('MeetingDetailScreen')}>
-                    <View style={styles.tennisImageContainer}>
-                        <Image source={tennis_group} style={styles.imageStyle} />
-                        <Image source={heart} style={styles.overlayIcon} />
-                    </View>
-                </TouchableOpacity>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.title}>Tennis CLUB</Text>
-                        <Text style={styles.date}>10.5일 15시</Text>
-                        <Text style={styles.location}>학교 테니스 코트</Text>
-                        <View style={styles.participantRow}>
-                            <Image source={star} style={styles.participantImage} />
-                            <Text style={styles.star}>2/4</Text>
-                        </View>
-                    </View>
+                <Text style={{ fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#000000'}}>
+                    총 4개
+                </Text>
+                <View style={{flex: 1}}></View>
+                <View style={{width: 174}}>
+                    <FlatList
+                        
+                        key="when"
+                        data={when}
+                        horizontal={true}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity
+                                style={[
+                                    styles.buttonwhen,
+                                    selectedTendency === item ? styles.whenselected : {}
+                                ]}
+                                onPress={() => toggleTendency(item)}
+                            >
+                                <Text
+                                    style={[
+                                        styles.meetingtext,
+                                        selectedTendency === item ? styles.meetingselectedtext : {}
+                                    ]}
+                                >
+                                    {item}
+                                </Text>
+                            </TouchableOpacity>
+                        )}
+                        keyExtractor={item => item}
+                    />
                 </View>
-
-                <View style={styles.itemContainer}>
-                    <Image source={pingpong} style={styles.imageStyle} />
-                    <View style={styles.textContainer}>
-                        {/* 이 부분은 핑퐁 그룹의 정보를 위한 예시입니다. 내용을 원하는대로 수정하실 수 있습니다. */}
-                        <Text style={styles.title}>탁구 연습</Text>
-                        <Text style={styles.date}>10.4일 9시</Text>
-                        <Text style={styles.location}>대강당</Text>
-                        <View style={styles.participantRow}>
-                            <Image source={star} style={styles.participantImage} />
-                            <Text style={styles.star}>3/4</Text>
-                        </View>
-                    </View>
-                </View>
+                
             </View>
+
+            
+            <FlatList
+                style={{alignSelf: 'center', marginTop:10}}
+                data={meetgroup}
+                numColumns={2}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+                horizontal={false}
+                showsVerticalScrollIndicator={false}
+            />                        
         
         </SafeAreaView>
     )

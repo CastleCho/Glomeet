@@ -144,17 +144,6 @@ const styles = StyleSheet.create({
     },
     meetingselected: {
         backgroundColor: '#5782F1',
-        shadowColor: "#000000",
-        shadowOffset: {
-          width: 0,
-          height: 0.5,
-        },borderColor: '#5782F1',
-        borderWidth:1,
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 4, // Android에서도 동작하게 하기 위한 속성
-        justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
-        alignItems: 'center',
     },
       meetingselecttext:{
         flex:1,
@@ -174,16 +163,11 @@ const styles = StyleSheet.create({
   buttonmeeting: {
     width: 52,
     height: 26,
-    marginHorizontal:3,
     backgroundColor: '#D1DCFB',
-    borderColor: '#D1DCFB',
-    borderWidth:1,
     borderRadius: 10,
     alignItems: 'center',
     justifyContent: 'center',
-    left: 20,
-    marginTop: 5
-
+    marginHorizontal: 3.5
     },
     dottedBorder:{
     borderWidth: 1,
@@ -198,65 +182,69 @@ const styles = StyleSheet.create({
     buttonwhen: {
       width: 52,
       height: 26,
-      marginHorizontal:3,
+      marginLeft:6,
       backgroundColor: 'white',
       borderColor: '#969696',
       borderWidth:1,
       borderRadius: 10,
       alignItems: 'center',
       justifyContent: 'center',
-      left: 150,
-      marginTop: 5
+      
+      
       },
       whenselected: {
         backgroundColor: '#969696',
-        shadowColor: "#000000",
-        shadowOffset: {
-          width: 0,
-          height: 0.5,
-        },borderColor: '#969696',
-        borderWidth:1,
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 4, // Android에서도 동작하게 하기 위한 속성
-        justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
-        alignItems: 'center',
     },
     itemContainer: {
-      width: 176,
-      height: 270,
-      margin: 10,
-      borderRadius: 10,
+      width: 175,
       overflow: 'hidden',
+      margin: 5,
+      marginBottom: 10,
+      borderRadius: 10,
+      
+      borderWidth: 1,
+      borderColor: '#E1E5EB'
     },
     imageStyle: {
-        width: '100%',
+        width: 175,
         height: 145,
     },
     textContainer: {
-        padding: 5,
-        backgroundColor: '#FFFFFF',
-        borderColor: 'grey',
+      marginLeft: 5
     },
     title: {
-      fontFamily: 'pretendard-Regular'
+      fontFamily: 'pretendard-SemiBold',
+      color: '#09111F',
+      fontSize: 14,
+      marginVertical: 3
+
     },
     date: {
         fontSize: 12,
         fontFamily: 'pretendard-Regular',
-        color: '#888',
+        color: '#09111F',
+    },
+    locationbox: {
+      height:16,
+      backgroundColor: '#D7F6E4',
+      borderRadius: 4,
+      justifyContent: 'center',
+      alignSelf: 'flex-start',
+      marginTop: 2
     },
     location: {
         fontSize: 12,
         color: '#08C754',
-        backgroundColor: '#D7F6E4',
         fontFamily: 'pretendard-Regular',
-        width: 100
+        borderRadius: 4,
+        marginHorizontal: 4,
+        marginTop: -1
     },
-    star: {
+    person: {
+        marginHorizontal:3,
         fontSize: 12,
         fontFamily: 'pretendard-Regular',
-        color: '#444',
+        color: '#4C5970',
     },
     participantImage: {
       width: 16,        // Set the desired width
@@ -264,7 +252,8 @@ const styles = StyleSheet.create({
     },
     participantRow: {
       flexDirection: 'row',
-      alignItems: 'center',  // This ensures the image and text are vertically centered
+      alignItems: 'center',
+      marginVertical: 3  // This ensures the image and text are vertically centered
     },
     tennisImageContainer: {
       position: 'relative',

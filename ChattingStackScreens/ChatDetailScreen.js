@@ -56,19 +56,32 @@ const ChatDetailScreen = ({ route, navigation }) => {
         <SafeAreaView style={[styles.container, {backgroundColor: 'white'}]}>
             <View style={styles.container}>
 
-                <View style={{ borderBottomWidth: 0.5, flexDirection: 'row', borderBottomColor: 'gray'}}> 
+                <View style={{ borderBottomWidth: 0.5, flexDirection: 'row', borderBottomColor: 'gray', alignItems: 'center', justifyContent: 'center'}}> 
 
-                    <View>
-                        <Text style={styles.chatName}>
+                    <View style={{flexDirection: 'row'}}>
+
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginBottom: 10}}>
+                            <Image
+                                source={require('../images/backicon.png')}
+                                style={{ width: 10, height: 15}}
+                            />
+                                <Text style={{fontSize: 15}}>Back</Text>
+                        </TouchableOpacity>
+
+                        <Text style={[styles.chatName, {flex: 1, textAlign: 'center', fontSize: 20, marginRight: 45}]}>
                             {chat.name}
                         </Text>
+
+
+                        
+
                     </View>
 
-                </View> 
+                </View>
                     
                 <ScrollView style={styles.messagesContainer}>
 
-                    <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 10}}>
+                    <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
                         <Image source={chat.image} style={styles.profileImage} />
                         <View>
                             <Text style={styles.chatSmallName}>{chat.name}</Text>

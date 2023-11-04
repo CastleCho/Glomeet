@@ -18,7 +18,13 @@ const styles = StyleSheet.create({
         marginVertical:'3%'
     },
     selectedButton: {
-        backgroundColor: 'blue',
+        backgroundColor: '#5782F1',
+        borderWidth: 0,
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: 3},
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 5,
     },
     onboardingButton: {
         backgroundColor: 'white',

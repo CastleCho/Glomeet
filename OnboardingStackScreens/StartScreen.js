@@ -12,14 +12,17 @@ const StartScreen = ({navigation}) => {
         <SafeAreaView style={styles.container}>
 
             <View>
+                <View style={{alignItems: 'center'}}>
+                    <Image source={require('../images/3.png')} style={{width: 337, height: 2.4, marginTop: 10, marginBottom: 30}} />
+                </View>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                     <Image
                         source={require('../images/friend.png')}
-                        style={{width:'70%', height: 320, resizeMode: 'cover', margin: 0}}
+                        style={{width:'70%', height: 320, resizeMode: 'cover'}}
                     />
                 </View>
                 <View style={{height: 130, alignItems: 'center'}}>
-                    <Text style={{fontWeight:'bold', fontSize: 20}}>
+                    <Text style={{fontWeight:'bold', fontSize: 25, marginBottom: 10}}>
                         이제 친구를 만나러 갈 수 있어요!
                     </Text>
                     <Text></Text>
@@ -27,12 +30,12 @@ const StartScreen = ({navigation}) => {
                         글로밋 앱은 건전하고 건강한 외국인 교류 문화를 만들어갑니다.
                     </Text>
                 </View>
-                <View style={{marginBottom: '10%'}}>
+                <View style={{marginTop: 10}}>
                     <TouchableOpacity
                         style={styles.button}
                         onPress = {handleNextPagePress}
                     >
-                        <Text style={styles.buttonText}>시작하기</Text>
+                        <Text style={[styles.buttonText, {fontWeight: 'bold'}]}>시작하기</Text>
                     </TouchableOpacity>
                 </View>
             </View>

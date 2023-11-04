@@ -1,5 +1,4 @@
-import { SafeAreaView, View, Text } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { SafeAreaView, View, Text, Image, TouchableOpacity } from "react-native";
 import styles from "./Styles/Styles";
 
 const WelcomeScreen = ({navigation}) => {
@@ -9,26 +8,20 @@ const WelcomeScreen = ({navigation}) => {
     }
 
     return (
-        <SafeAreaView>
-            <View>
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 35, color: 'black', marginTop: '15%', marginLeft: '7%'}}>글로밋과 함께하는</Text>
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 35, color: 'black', marginTop: '5%', marginLeft: '7%'}}>글로벌 교류</Text>
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 35, color: 'black', marginTop: '80%', marginLeft: '7%'}}>오늘의 매칭을</Text>
-                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 35, color: 'black', marginTop: '5%', marginLeft: '7%', marginBottom: '20%'}}>만나러 가보아요!</Text>
-            </View>
-            <View>
+        <SafeAreaView style={{backgroundColor: '#5782F1', flex: 1}}>
+            <View style={{flex:1, alignItems: 'center'}}>
+                <Image source={require('./images/start.png')} style={{width: 393, height: 780, position: 'absolute', marginTop: 20, shadowColor: '#000000', shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.5, shadowRadius: 2}} resizeMode="cover" />
                 <TouchableOpacity
-                    style={styles.button}
+                    style={[styles.button, {position: 'absolute', borderWidth: 0, top: 680, zIndex: 1, backgroundColor: 'white', shadowColor: '#000000', shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.5, shadowRadius: 2, elevation: 5}]}
                     onPress={handleButtonPress}
                 >
-                    <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 20, color: 'black'}}>
+                    <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 20, color: '#5782F1', fontWeight: 'bold'}}>
                         로그인 하러가기
                     </Text>
                 </TouchableOpacity>
-            </View>
+            </View>        
         </SafeAreaView>
     )
 }
 
 export default WelcomeScreen;
-

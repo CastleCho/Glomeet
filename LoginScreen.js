@@ -89,10 +89,10 @@ const LoginScreen = ({navigation}) => {
                 <Text style={styles.label}>자동 로그인</Text>
             </View>
 
-            <View style={[styles.button, {top: 65, width: '80%', shadowColor: '#000', shadowOffset: {width: 0, height: 6}, shadowOpacity: 0.5, shadowRadius: 2, elevation: 5}]}>
+            <View style={[styles.button, {top: 65, width: '80%', shadowColor: '#000', shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.5, shadowRadius: 2, elevation: 5}]}>
                 <TouchableOpacity onPress={handleOnPress}>
 
-                    <Text style={{color: 'white'}}>
+                    <Text style={{color: 'white', fontWeight: 'bold', fontSize: 18}}>
                         로그인
                     </Text>
                     

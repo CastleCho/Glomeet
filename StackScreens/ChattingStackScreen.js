@@ -11,7 +11,7 @@ const ChattingStackScreen = () => {
     return (
         <Stack.Navigator initialRouteName="ChattingScreen">
             <Stack.Screen name="ChattingScreen" component={ChattingScreen} options = {{headerShown : false}}/>
-            <Stack.Screen name="ChatDetailScreen" component={ChatDetailScreen} options = {{headerShown : true}}/>
+            <Stack.Screen name="ChatDetailScreen" component={ChatDetailScreen} options = {{headerShown : false}}/>
         </Stack.Navigator>
     )
 }

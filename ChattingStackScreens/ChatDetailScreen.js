@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, View, Text, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Image, ScrollView } from "react-native";
+import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Image} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import send from '../images/send.png'
 
 const ChatDetailScreen = ({ route, navigation }) => {
     const { chat } = route.params;
@@ -31,6 +32,7 @@ const ChatDetailScreen = ({ route, navigation }) => {
     
     const handlePresetMessage = () => {
         const predefinedMessage = "Let’s go to a cafe together today";
+        
         setInputMessage(predefinedMessage);
       };
 
@@ -41,7 +43,6 @@ const ChatDetailScreen = ({ route, navigation }) => {
         }
 
         const updatedMessages = [...messages, inputMessage];
-
         try {
             await AsyncStorage.setItem('chatMessages', JSON.stringify(updatedMessages));
             setMessages(updatedMessages);
@@ -50,13 +51,6 @@ const ChatDetailScreen = ({ route, navigation }) => {
             console.error('Error saving message:', error);
         }
     };
-    const CustomButton = ({ onPress, title }) => {
-        return (
-          <TouchableOpacity onPress={onPress} style={styles.customButton}>
-            <Text style={styles.customButtonText}>{title}</Text>
-          </TouchableOpacity>
-        );
-      };
 
     return (
         <SafeAreaView style={[styles.container, {backgroundColor: 'white'}]}>
@@ -114,7 +108,8 @@ const ChatDetailScreen = ({ route, navigation }) => {
                                 styles.chatbutton, 
                                 { backgroundColor: item === selectedCategory ? '#5782F1' : '#D1DCFB' }
                                 ]}
-                                onPress={() => handlePresetMessage (item)}
+                                onPress={() => {handlePresetMessage(item);
+                                    handleCategorySelect(item);}}
                             >
                                 <Text style={{
                                 fontFamily: 'Pretendard-Medium', 
@@ -134,7 +129,8 @@ const ChatDetailScreen = ({ route, navigation }) => {
                                 styles.chatbutton, 
                                 { backgroundColor: item === selectedCategory ? '#5782F1' : '#D1DCFB' }
                                 ]}
-                                onPress={() => handlePresetMessage (item)}
+                                onPress={() => {handlePresetMessage(item);
+                                    handleCategorySelect(item);}}
                             >
                                 <Text style={{
                                 fontFamily: 'Pretendard-Medium', 
@@ -150,14 +146,17 @@ const ChatDetailScreen = ({ route, navigation }) => {
                     </View>
 
                 <View style={styles.inputContainer}>
-                    <TextInput
-                        value={inputMessage}
-                        onChangeText={setInputMessage}
-                        style={styles.input}
-                        placeholder="Type Something...."
-                    />
-                    <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
-                        <Text style={styles.sendButtonText}>Send</Text>
+                <TextInput
+                    value={inputMessage}
+                    onChangeText={setInputMessage}
+                    style={[
+                        styles.input,
+                        { color: inputMessage ? '#000000' : '#B9B9B9' }
+                    ]}
+                    placeholder="Type Something...."
+                />
+                    <TouchableOpacity style={[styles.sendButton]} onPress={sendMessage}>
+                        <Image source={send} style={{width: 24, height: 24}} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -198,13 +197,16 @@ const styles = StyleSheet.create({
     },
     sendButton: {
         marginLeft: 10,
-        padding: 8,
-        backgroundColor: '#2196F3',
-        borderRadius: 5,
+        backgroundColor: '#F1F1F1',
+        borderRadius: 45,
+        width: 71,
+        height: 52,
+        justifyContent: 'center',
+        alignItems: 'center' 
     },
     sendButtonText: {
-        color: 'white',
-        fontWeight: 'bold',
+        color: '#B9B9B9',
+
     },
     profileImage: {
         width: 40,

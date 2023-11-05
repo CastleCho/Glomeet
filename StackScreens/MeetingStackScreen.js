@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native"
 import MeetingScreen from '../MeetingStackScreens/MeetingScreen';
 import MeetingDetailScreen from '../MeetingStackScreens/MeetingDetailScreen'
-import goToRegistration from '../MeetingStackScreens/goToRegistration';
+import goToRegistration from '../MeetingStackScreens/GoToRegistration';
 import RegistrationComplete from '../MeetingStackScreens/RegistrationComplete'
 import {Image} from "react-native";
 import React from "react"

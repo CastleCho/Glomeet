@@ -80,7 +80,7 @@ const ChatDetailScreen = ({ route, navigation }) => {
                             <Text style={{fontFamily:'pretendard-Medium', fontSize: 14, color:'#B4B4B4',textAlign: 'center'}}>매칭이 완료되었습니다! {'\n'} 새로운 사람과 대화할 때 매너있는 채팅을 해주세요 :)</Text>
                         </View>
 
-                        <View style={{marginTop:25 ,justifyContent: 'center', alignItems: 'center',marginTop: 300}}>
+                        <View style={{marginTop:25 ,justifyContent: 'center', alignItems: 'center',marginTop: 270}}>
                             <Text style={{fontFamily:'pretendard-Medium', fontSize: 14, color:'#B4B4B4',textAlign: 'center'}}>Today 12:05</Text>
                         </View>
                         
@@ -88,8 +88,7 @@ const ChatDetailScreen = ({ route, navigation }) => {
 
                     <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
                         <Image source={chat.image} style={styles.profileImage} />
-                        <View>
-                            <Text style={styles.chatSmallName}>{chat.name}</Text>
+                        <View style= {{width: 234, height: 60, backgroundColor: '#F1F1F1', borderRadius: 20,justifyContent: 'center', alignItems: 'left'}}>
                             <Text style={styles.chatMessage}>{chat.message}</Text>
                         </View>
                     </View>
@@ -213,7 +212,8 @@ const styles = StyleSheet.create({
         height: 40,
         borderRadius: 25,
         borderWidth: 0.5,
-        borderColor: '#868686',
+        borderColor: '#D7D7D7',
+        backgroundColor: '#D7D7D7',
         marginRight: 10
     },
     chatName: {
@@ -234,6 +234,11 @@ const styles = StyleSheet.create({
         borderColor: '#ffffff',
         borderWidth: 1,
         marginHorizontal: 7.5
+      },
+      chatMessage: {
+        fontFamily: 'Pretendard-Regular',
+        fontSize: 14,
+        marginLeft: 20
       }
 });
 

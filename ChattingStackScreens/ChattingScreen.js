@@ -25,7 +25,7 @@ const ChattingScreen = () => {
         { id: 'A1', name: 'Toans', tags: ['#경영학과', '#남자', '#외향', '#축구'], image: require('../images/boy.png'), message: ['Hi, my name is Toans'], time: '12:33', unread: 1 },
         { id: 'A2', name: 'Siliva', tags: ['#간호학과', '#여자', '#내향', '#독서'], image: require('../images/chat_char.png'), message: 'hi', time: '12:31', unread: 1 },
         { id: 'A3', name: 'James', tags: ['#전자과', '#남자', '#내향', '#게임'], image: require('../images/boy.png'), message: 'Do you want to go to a cafe with me?', time: '09:07', unread: 9 },
-        { id: 'A4', name: 'Nhung Hoàng', tags: ['#이비즈니스학과', '#남자', '#외향', '#노래'], image: require('../images/boy.png'), message: 'I took a walk with my dog today and...', time: '10:17', unread: 1 },
+        { id: 'A4', name: 'Nhung Hoàng', tags: ['#이비즈', '#남자', '#외향', '#노래'], image: require('../images/boy.png'), message: 'I took a walk with my dog today and...', time: '10:17', unread: 1 },
         { id: 'A5', name: 'Kate', tags: ['#약학과', '#여자', '#외향', '#수영'], image: require('../images/chat_char2.png'), message: 'Do you know where the gym is?', time: '10:09', unread: 0 },
     ];
 
@@ -34,7 +34,7 @@ const ChattingScreen = () => {
         { id: 'B2', name: 'Cook Group Chat', tags: ['#경영학과', '#음식', '#요리', '#술'], image: require('../images/meeting.png'), message: "I'm glad to see you.", time: '11:25', unread: 2 },
         { id: 'B3', name: 'Game Room', tags: ['#경영학과', '#음식', '#게임'], image: require('../images/Main.png'), message: 'A new game has been released!', time: '09:38', unread: 4 },
         { id: 'B4', name: "Let's sing", tags: ['#전자과', '#친목', '#노래'], image: require('../images/chatting.png'), message: 'Who wants to sing with me?', time: '10:25', unread: 13 },
-        { id: 'B5', name: 'Drink', tags: ['#이비즈니스학과', '#친목', '#음식', '#술'], image: require('../images/Matching.png'), message: 'A new bar opened today', time: '10:23', unread: 0 },
+        { id: 'B5', name: 'Drink', tags: ['#이비즈', '#친목', '#음식', '#술'], image: require('../images/Matching.png'), message: 'A new bar opened today', time: '10:23', unread: 0 },
     ];
 
     return(
@@ -206,9 +206,10 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
-        borderWidth: 0.5,
-        borderColor: '#868686',
-        marginRight: 10
+        borderWidth: 1,
+        borderColor: '#B5B5B5',
+        marginRight: 15,
+        marginLeft: 25
     },
     chatDetails: {
         flex: 1
@@ -223,10 +224,10 @@ const styles = StyleSheet.create({
     },
     chatTime: {
         marginBottom: 5,
-        color: '#aaa'
+        color: '#A9A9A9'
     },
     unreadBadge: {
-        backgroundColor: 'red',
+        backgroundColor: '#FF3838',
         borderRadius: 10,
         width: 20,
         height: 20,
@@ -234,32 +235,32 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     unreadText: {
-        color: 'white',
-        fontSize: 12
+        color: '#FFFFFF',
+        fontSize: 11
     },
     message: {
-      color: 'gray',
+      color: '#000000',
+      fontFamily: 'Pretendard-Medium'
     },
     tagsContainer: {
       flexDirection: 'row',
-      flexWrap: 'wrap',
-      marginRight: 5,
+      marginVertical: 3,
     },
     tagBox: {
-        paddingHorizontal: 8,  // 태그 안쪽의 가로 패딩
-        paddingVertical: 3,    // 태그 안쪽의 세로 패딩
-        borderWidth: 0,        // 태그 테두리 두께
-        borderColor: '#ddd',   // 태그 테두리 색상
-        borderRadius: 10,      // 태그 모서리 둥글게
-        marginRight: 2,        // 태그와 태그 사이의 거리
-        marginBottom: 0,       // 다음 줄로 넘어갈 때의 태그와 태그 사이의 거리
+        width: 55,
+        height: 26,
+        borderColor: '#ffffff',
+        borderRadius: 20,    
+        marginRight: 10,
         marginTop: 5,
         backgroundColor: '#D1DCFB',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     tagText: {
-        marginTop: 0,
-        fontSize: 10,
-        color: '#8A8A8A', // 또는 다른 색상
+        fontFamily: 'Pretendard-Medium',
+        fontSize: 11,
+        color: '#8A8A8A',
     }
 });
 

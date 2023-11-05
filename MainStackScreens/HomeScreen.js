@@ -9,6 +9,8 @@ import alramicon from '../images/alramicon.png';
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
+  const [selectedMission, setSelectedMission] = useState(null);
+  const [userPoints, setUserPoints] = useState(1400);
   const [step, setStep] = useState('reward'); 
   const onNextPress = () => {
     if (step === 'reward') {
@@ -19,14 +21,37 @@ export default function App() {
 }; 
   const modalizeRef = useRef(null);
   const dots = new Array(82).fill(0);
-  const missions = [
+  const [missions, setMissions] = useState([
     { id: '1', title: '오늘의 매칭하고', point: '300P 즉시 받기', state:'보상받기',icon: require('../images/bell.png')},
     { id: '2', title: '채팅 3번하고', point: '100P 즉시 받기', state:'1/3',icon: require('../images/thumb.png')},
     { id: '3', title: '추가 매칭 3번하고', point: '100P 즉시 받기', state:'2/3', icon: require('../images/bucket-dynamic-color.png')},
     { id: '4', title: '모임 가입하고', point: '300P 즉시 받기', state:'2/3', icon: require('../images/camera.png')},
     { id: '5', title: '프로필 변경 2번하고', point: '300P 즉시 받기', state:'보상받기', icon: require('../images/golbang.png')},
     { id: '6', title: '등록한 모임 인원이 달성하면', point: '300P 즉시 받기', state:'보상받기', icon: require('../images/book.png')},
-  ];
+  ]);
+
+  const confirmReward = () => {
+    // 미션의 포인트 문자열에서 포인트를 추출하고 정수로 변환
+    const pointsToAdd = parseInt(selectedMission.point.replace('P', ''));
+  
+    // 사용자의 포인트를 업데이트
+    setUserPoints(currentPoints => currentPoints + pointsToAdd);
+  
+    // 이전과 같이 미션을 업데이트
+    setMissions(prevMissions =>
+      prevMissions.map(mission =>
+        mission.id === selectedMission.id ? { ...mission, state: '보상완료' } : mission
+      )
+    );
+  
+    // 이전과 같이 모달을 닫음
+    setModalVisible(false);
+  };
+
+  const openModal = (mission) => {
+    setSelectedMission(mission); // 현재 선택된 mission 설정
+    setModalVisible(true); // 모달을 열음
+  };
   
   const renderMissionItem = ({ item }) => (
     <View>
@@ -35,9 +60,8 @@ export default function App() {
           transparent={true}
           visible={modalVisible}
           isVisible={modalVisible}
-          onConfirm={() => {
-              setModalVisible(false);
-          }}
+          onConfirm={confirmReward} // confirm 버튼을 누를 때 실행될 함수
+          onRequestClose={() => setModalVisible(false)} // 모달 외부를 누를 때 실행될 함수
       >
       </RewardModal>
       <View style={{ flexDirection: 'row', alignSelf: 'center', }}>
@@ -66,14 +90,15 @@ export default function App() {
         <TouchableOpacity
           style={[
             styles.rewardbutton,
-            item.state !== "보상받기" ? { backgroundColor: '#9FA4B1' } : {}
+            item.state !== '보상받기' ? { backgroundColor: '#9FA4B1' } : {}
           ]}
-          onPress={() => setModalVisible(true)}
+          onPress={() => openModal(item)}
+          disabled={item.state !== '보상받기'}
         >
           <Text style={styles.rewardbuttonText}>
             {item.state}
           </Text>
-        </TouchableOpacity>
+      </TouchableOpacity>
       </View>
     </View>
   );
@@ -128,7 +153,7 @@ export default function App() {
           <View style={styles.pointContainer} >
             
             <View style={styles.pointBox}>
-              <Text style={styles.pointText}>1,400P</Text>
+              <Text style={styles.pointText}>{userPoints}P</Text>
               <Text style={styles.explainText}>보유 포인트</Text>
             </View>
             <View style={{width:1.7, height:39, backgroundColor: '#EEEEEE', borderRadius: 10,}}/>

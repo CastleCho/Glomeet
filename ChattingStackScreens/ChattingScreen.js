@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#B5B5B5',
         marginRight: 15,
-        marginLeft: 25
+        marginLeft: 15
     },
     chatDetails: {
         flex: 1

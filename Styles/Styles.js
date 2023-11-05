@@ -51,14 +51,25 @@ const styles = StyleSheet.create({
   },
     button: {
         marginHorizontal: '5%',
-        width: '90%',
+        width: 310,
         backgroundColor: '#5782F1',
         borderRadius: 25,
-        justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
+        justifyContent: 'center',
         alignItems: 'center',
-        height: 52,
-        marginVertical:'3%'
-
+        height: 44,
+        marginVertical:10
+    },
+    selectedButton: {
+        backgroundColor: '#5782F1',
+        borderWidth: 0,
+        shadowColor: '#000000',
+        shadowOffset: {width: 0, height: 3},
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 5,
+    },
+    onboardingButton: {
+        backgroundColor: 'white',
     },
     buttonText: {
         fontFamily: 'Pretendard-Bold',
@@ -87,7 +98,7 @@ const styles = StyleSheet.create({
         elevation: 5, // Android에서도 동작하게 하기 위한 속성
         justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
         alignItems: 'center',
-      },
+    },
     navtext:{
         fontFamily: 'Pretendard-Regular',
         fontSize: 12,
@@ -110,7 +121,7 @@ const styles = StyleSheet.create({
         borderRadius:20,
         justifyContent: 'center', // 텍스트를 세로로 중앙에 위치시키기 위해 추가
         alignItems: 'center',
-      },
+    },
     chatbutton:{
         width:281, 
         height:38, 

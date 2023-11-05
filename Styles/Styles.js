@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
       borderRadius: 10
   },
     button: {
-        marginHorizontal: '5%',
-        width: 310,
+        
+        width: 327,
         backgroundColor: '#5782F1',
-        borderRadius: 25,
+        borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
         height: 44,

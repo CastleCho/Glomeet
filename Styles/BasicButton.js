@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     height: 52,
-    marginVertical: '5%'
+    marginVertical: '5%',
+    alignSelf: 'center'
   },
   buttonText: {
     fontFamily: 'Pretendard-Bold',

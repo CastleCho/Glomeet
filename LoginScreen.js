@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { SafeAreaView, Text, StyleSheet, ActivityIndicator, View, Image, TextInput, Alert } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import styles from "./Styles/Styles";
 import AjouLogo from './images/AjouLogo.png'
+import BasicButton from './Styles/BasicButton';
 
 const LoginScreen = ({navigation}) => {
 
@@ -34,33 +35,34 @@ const LoginScreen = ({navigation}) => {
                 <Image
                     source={AjouLogo}
                     style={{
-                        alignItems: "center", alignContent: 'center', width: 200, height:186, marginTop: 100, marginBottom: 67
+                        alignItems: "center", alignContent: 'center', width: 198, height:186, marginTop: 100, marginBottom: 67
                     }}
                 />
             </View>
 
-            <View style={{width: 330, height: 60}}>
-                <View style={{borderWidth: 0.5, height: 55, bordercolor: '#887E7',justifyContent: 'center', marginBottom: 15, borderRadius: 5}}>
-                    <TextInput
-                        style={{marginLeft: 15, fontFamily: 'pretendard-Medium', fontSize: 16}}
-                        placeholder="아이디를 입력하세요."
-                        value={id}
-                        onChangeText={setId}
-                    />
-                </View>
-
-                <View style={{borderWidth: 0.5, height: 55, bordercolor: '#887E7',justifyContent: 'center', marginBottom: 15, borderRadius: 5}}>
-                    <TextInput
-                        style={{marginLeft: 15, fontFamily: 'pretendard-Medium', fontSize: 16}}
-                        placeholder="비밀번호를 입력하세요."
-                        secureTextEntry={true}
-                        value={password}
-                        onChangeText={setPassword}
-                    />
-                </View>
+            
+            <View style={{width: 330, borderWidth: 1, height: 60, borderColor: '#887E7E', justifyContent: 'center', marginBottom: 15, borderRadius: 10}}>
+                <TextInput
+                    style={{marginLeft: 15, fontFamily: 'Pretendard-Medium', fontSize: 16}}
+                    placeholder="아이디를 입력하세요."
+                    value={id}
+                    onChangeText={setId}
+                />
             </View>
 
-            <View style={{flexDirection: 'row', alignItems: 'center', marginLeft: 220, marginTop: 80}}>
+            <View style={{width: 330, borderWidth: 1, height: 60, borderColor: '#887E7E',justifyContent: 'center', marginBottom: 15, borderRadius: 10}}>
+                <TextInput
+                    style={{marginLeft: 15, fontFamily: 'Pretendard-Medium', fontSize: 16}}
+                    placeholder="비밀번호를 입력하세요."
+                    secureTextEntry={true}
+                    value={password}
+                    onChangeText={setPassword}
+                />
+            </View>
+         
+
+            <View style={{flexDirection: 'row', marginHorizontal:34}}>
+                <View style={{flex:1}}/>
                 <TouchableOpacity style={{    
                     height: 24,
                     width: 24,
@@ -80,19 +82,15 @@ const LoginScreen = ({navigation}) => {
                     }}
                     />}
                 </TouchableOpacity>
-                <Text style={{fontFamily: 'pretendard-Medium', fontSize: 16, color: '#635C5C'}}>자동 로그인</Text>
+                <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 16, color: '#635C5C'}}>자동 로그인</Text>
             </View>
-
-            <View style={[styles.button, {top: 65, width: '80%', shadowColor: '#000', shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.5, shadowRadius: 2, elevation: 5}]}>
-                <TouchableOpacity onPress={handleOnPress}>
-
-                    <Text style={{color: 'white',fontFamily: 'pretendard-Bold', fontSize: 18}}>
-                        로그인
-                    </Text>
-                    
-                </TouchableOpacity>
+            <View style={{flex:1,justifyContent:'center', alignItems:'center'}}>
+            <BasicButton
+            style={{width: 318, shadowColor: '#000000', shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.5, shadowRadius: 2, elevation: 5}}
+            title="로그인"
+            onPress={handleOnPress}
+            />
             </View>
-
         </SafeAreaView>
     )
 }

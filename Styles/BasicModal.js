@@ -11,6 +11,8 @@ const BasicModal = ({
     cancelButtonText = "취소",
     width = '76%', // default 값
     height = '22%', // default 값
+    textStyle,
+    content
 }) => {
     return (
         <Modal
@@ -22,7 +24,8 @@ const BasicModal = ({
             <View style={styles.centeredView}>
                 <View style={[styles.modalView, { width, height }]}>
                     <View style={styles.modalTextView}>
-                        <Text style={styles.modalText}>{title}</Text>
+                        <Text style={[styles.modalText, textStyle]}>{title}</Text>
+                        <Text style={[styles.modalcontentText, textStyle]}>{content}</Text>
                     </View>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity 
@@ -79,6 +82,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Pretendard-SemiBold',
         fontSize: 16,
         color: '#000',
+    },
+    modalcontentText: {
+        fontFamily: 'Pretendard-Regular',
+        fontSize: 14,
+        color: '#6e6e6e',
     },
     buttonContainer: {
         flexDirection: 'row',  

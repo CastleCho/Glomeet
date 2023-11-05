@@ -1,6 +1,5 @@
 import { React, useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, ActivityIndicator, SafeAreaView } from "react-native";
-import 'react-native-gesture-handler';
 // import styles from "./Styles/Styles";
 
 const SplashScreen = ({navigation}) => {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
 import BasicButton from '../Styles/BasicButton.js';
-import { HeaderBackButton } from '@react-navigation/elements';
 import BasicModal from '../Styles/BasicModal.js';
 import music from '../images/music.png';
 import noodles from '../images/noodles.png';

@@ -5,7 +5,11 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const SplashScreen = ({navigation}) => {
 
-
+    useEffect(()=>{
+        setTimeout(()=>{
+            navigation.replace('WelcomeScreen')
+        },2000)
+    })
     
 
     return(

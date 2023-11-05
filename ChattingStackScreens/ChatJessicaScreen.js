@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Image} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import send from '../images/send.png'
-
+import backicon from '../images/backicon.png';
 const ChatJessicaScreen = ({navigation }) => {
     const chat = {name:'Jessica',image:require('../images/chatting.png'), messages: 'asdasd'}
     const category = ['안녕하세요', '뭐하고 계세요?', '같이 등산하러가요', '오늘 같이 카페가요!', '기분이 어때요?'];

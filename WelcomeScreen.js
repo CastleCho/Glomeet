@@ -15,7 +15,7 @@ const WelcomeScreen = ({navigation}) => {
                     style={[styles.button, {position: 'absolute', borderWidth: 0, top: 680, zIndex: 1, backgroundColor: 'white', shadowColor: '#000000', shadowOffset: {width: 0, height: 3}, shadowOpacity: 0.5, shadowRadius: 2, elevation: 5}]}
                     onPress={handleButtonPress}
                 >
-                    <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 20, color: '#5782F1', fontWeight: 'bold'}}>
+                    <Text style={{fontFamily: 'Pretendard-Bold', fontSize: 20, color: '#5782F1', fontWeight: 'bold'}}>
                         로그인 하러가기
                     </Text>
                 </TouchableOpacity>

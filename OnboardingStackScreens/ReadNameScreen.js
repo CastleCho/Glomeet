@@ -38,11 +38,11 @@ const ReadNameScreen = ({navigation}) => {
             <View style={{alignItems: 'center'}}>
 
                 <View style={{marginTop: 20, marginBottom: 30, alignItems: 'center'}}>
-                    <Text style={{fontSize: 20, marginBottom: 5, marginTop: 10, fontWeight: 'bold'}}>
+                    <Text style={{fontSize: 22, marginBottom: 5, marginTop: 10, fontFamily: 'pretendard-Medium'}}>
                         반가워요!
                     </Text>
                     
-                    <Text style={{fontSize: 20, fontWeight: 'bold'}}>
+                    <Text style={{fontSize: 22, fontFamily: 'pretendard-Medium'}}>
                         프로필 선택 후 이름을 입력해주세요
                     </Text>
                 </View>

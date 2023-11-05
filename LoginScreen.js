@@ -34,19 +34,19 @@ const LoginScreen = ({navigation}) => {
                 <Image
                     source={AjouLogo}
                     style={{
-                        alignItems: "center", alignContent: 'center', width: 200, resizeMode: 'contain', margin: '5%'
+                        alignItems: "center", alignContent: 'center', width: 200, height:186, marginTop: 113, marginBottom: 65
                     }}
                 />
             </View>
 
             <View style={{width: '80%'}}>
 
-                <View style={{borderWidth: 1, height: 55, justifyContent: 'center', marginBottom: 15, borderRadius: 5}}>
+                <View style={{borderWidth: 1, height: 55, bordercolor: '#887E7',justifyContent: 'center', marginBottom: 15, borderRadius: 5}}>
                     <TextInput
                         style={{marginLeft: 15}}
                         placeholder="아이디를 입력하세요."
                         value={id}
-                        onChangeText={setId} // 입력된 값으로 상태 업데이트
+                        onChangeText={setId}
                     />
                 </View>
 

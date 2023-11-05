@@ -26,7 +26,7 @@ const MatchingScreen = ({navigation}) => {
             <Image source={main} style={{width: 302, height: 214, marginTop: '11%'}}/>
             <View style={styles.shadowBox}>
                 <Text style={{fontFamily: 'Pretendard-SemiBold', fontSize: 20, color: '#6E87E5'}}>
-                    1,400P
+                    1,700P
                 </Text>
                 <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 11, color: '#949698'}}>
                     보유 포인트

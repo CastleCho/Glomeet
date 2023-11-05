@@ -2,9 +2,13 @@ import React, { useState, useEffect } from 'react';
 import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Image} from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import send from '../images/send.png'
-
-const ChatJessicaScreen = ({navigation }) => {
-    const chat = {name:'Jessica',image:require('../images/chatting.png'), messages: 'asdasd'}
+import people from '../images/people.png'
+import calender from '../images/calender.png'
+import meetingdetail from '../images/meetingdetail.png'
+import backicon from '../images/backicon.png';
+import tennispro from '../images/tennisprofile.png'
+const ChatTennisScreen = ({navigation }) => {
+    const chat = {name:'Tennis CLUB',image:require('../images/chatting.png'), messages: 'asdasd'}
     const category = ['안녕하세요', '뭐하고 계세요?', '같이 등산하러가요', '오늘 같이 카페가요!', '기분이 어때요?'];
     const [selectedCategory, setSelectedCategory ] = useState(null);
     
@@ -65,73 +69,44 @@ const ChatJessicaScreen = ({navigation }) => {
     return (
         <SafeAreaView style={[styles.container, {backgroundColor: 'white'}]}>
             <View style={styles.container}>
-                    <View style={{justifyContent: 'center', alignItems: 'center', flex:1}}>
-                    <View style={{ width: 113, height: 26, backgroundColor: '#DFDFDF', borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ fontFamily: 'pretendard-Medium', color: '#8A8A8A', fontSize: 11, textAlign: 'center' }}>
-                            2023년 10월 5일
-                        </Text>
-                    </View>
-                        <View style={{marginTop:25 ,justifyContent: 'center', alignItems: 'center'}}>
-                            <Text style={{fontFamily:'pretendard-Medium', fontSize: 14, color:'#B4B4B4',textAlign: 'center'}}>매칭이 완료되었습니다! {'\n'} 새로운 사람과 대화할 때 매너있는 채팅을 해주세요 :)</Text>
+                <View style={{flexDirection: 'row', justifyContent:'center', alignItems: 'center'}}>
+                    <Image source={tennispro} style={{width:50, height: 50, marginRight: 20}}/>
+                    <View style={{}}>
+                        <View style={styles.meetingBox}>
+                            <Image source={calender} style={styles.meetingTime}/>
+                            <Text>2023 / 10 / 05 15시</Text>
                         </View>
                         <View style={{flex:1}}/>
-                        <View style={{marginTop:25 ,justifyContent: 'center', alignItems: 'center',marginTop: 270}}>
-                            <Text style={{fontFamily:'pretendard-Medium', fontSize: 14, color:'#B4B4B4',textAlign: 'center'}}>Today 12:05</Text>
-                        </View>
-                        
-                    </View>
-                    
-
-                    <View style={{marginTop:20,justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{color: '#5782F1', fontFamily: 'pretendard-Medium',fontSize: 14}}>
-                            버튼을 눌러 채팅을 시작해보세요!
-                        </Text>
-                        <View style={{ flexDirection: 'column', marginTop: 20, alignItems: 'center' }}>
-
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
-                            {category.slice(0, 3).map((item, index) => (
-                            <TouchableOpacity 
-                                key={index} 
-                                style={[
-                                styles.chatbutton, 
-                                { backgroundColor: item === selectedCategory ? '#5782F1' : '#D1DCFB' }
-                                ]}
-                                onPress={() => {handlePresetMessage(item);
-                                    handleCategorySelect(item);}}
-                            >
-                                <Text style={{
-                                fontFamily: 'Pretendard-Medium', 
-                                fontSize: 11, 
-                                color: item === selectedCategory ? '#ffffff' : '#949698'
-                                }}>
-                                {item}
-                                </Text>
-                            </TouchableOpacity>
-                            ))}
-                        </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                            {category.slice(3).map((item, index) => (
-                            <TouchableOpacity 
-                                key={index} 
-                                style={[
-                                styles.chatbutton, 
-                                { backgroundColor: item === selectedCategory ? '#5782F1' : '#D1DCFB' }
-                                ]}
-                                onPress={() => {handlePresetMessage(item);
-                                    handleCategorySelect(item);}}
-                            >
-                                <Text style={{
-                                fontFamily: 'Pretendard-Medium', 
-                                fontSize: 11, 
-                                color: item === selectedCategory ? '#ffffff' : '#949698'
-                                }}>
-                                {item}
-                                </Text>
-                            </TouchableOpacity>
-                            ))}
+                        <View style={styles.tennisdetailBox}>
+                            <Text style={styles.tennisdetail}>운동</Text>
                         </View>
                     </View>
+                    <View style={{flex:1}}/>
+                    <View style={{}}>
+                        <View style={styles.meetingBox}>
+                            <Image source={people} style={styles.meetingTime}/>
+                            <Text>4</Text>
+                        </View>
+                        <View style={{flex:1}}/>
+                        <View style={styles.locationbox}>
+                            <Text style={styles.location}>학교 테니스 코트</Text>
+                        </View>
                     </View>
+                </View>
+                <View style={{justifyContent: 'center', alignItems: 'center', flex:1,marginTop: 20}}>
+                <View style={{ width: 113, height: 26, backgroundColor: '#DFDFDF', borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontFamily: 'Pretendard-Medium', color: '#8A8A8A', fontSize: 11, textAlign: 'center' }}>
+                        2023년 10월 5일
+                    </Text>
+                </View>
+                    <View style={{marginTop:25 ,justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={{fontFamily:'Pretendard-Medium', fontSize: 14, color:'#B4B4B4',textAlign: 'center'}}><Text style={{color:'#5782F1'}}>운동</Text> 당일이 되었네요! 새로운 친구들과 즐거운 시간 보내세요 :)</Text>
+                    </View>
+                    <View style={{flex:1}}/>
+                    <View style={{marginTop:25 ,justifyContent: 'center', alignItems: 'center',marginTop: 270}}>
+                        <Text style={{fontFamily:'Pretendard-Medium', fontSize: 14, color:'#B4B4B4',textAlign: 'center'}}>Today 12:05</Text>
+                    </View>
+                </View>
 
                 <View style={styles.inputContainer}>
                 <TextInput
@@ -228,7 +203,55 @@ const styles = StyleSheet.create({
         fontFamily: 'Pretendard-Regular',
         fontSize: 14,
         marginLeft: 20
-      }
+      },
+      meetingTime: {
+        width: 22,
+        height: 19,
+        marginRight: 5,
+
+      },
+      meetingBox: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
+  
+      },
+      tennisBox: {
+        flexDirection: 'row',
+        marginHorizontal: 36,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 15
+      },
+      tennisdetail:{
+        fontFamily: 'Pretendard-Bold',
+        color: '#2D68FF',
+        fontSize: 12,
+      },
+      tennisdetailBox:{
+        borderRadius: 10,
+        backgroundColor: '#5782F133',
+        width: 53,
+        height: 28,
+        alignItems: 'center',
+        justifyContent: 'center'
+      },
+      locationbox: {
+        height:16,
+        backgroundColor: '#D7F6E4',
+        borderRadius: 4,
+        justifyContent: 'center',
+        alignSelf: 'flex-start',
+        marginTop: 2
+      },
+      location: {
+          fontSize: 12,
+          color: '#08C754',
+          fontFamily: 'pretendard-Regular',
+          borderRadius: 4,
+          marginHorizontal: 4,
+          marginTop: -1
+      },
 });
 
-export default ChatJessicaScreen;
+export default ChatTennisScreen;

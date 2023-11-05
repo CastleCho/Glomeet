@@ -7,13 +7,13 @@ import calender from '../images/calender.png'
 import meetingdetail from '../images/meetingdetail.png'
 import BasicModal from '../Styles/BasicModal';
 
-const MeetingDetailScreen = () =>{
+const MeetingDetailScreen = ({navigation}) =>{
     const [modalVisible, setModalVisible] = useState(false);
     return(
         <SafeAreaView style={styles.MeetingContainer}>
             <Image source={tennis_group} style={styles.MDimage} />
             <View style={styles.customBox}>
-                <Text style={styles.boxInnerTitle}>테니스 치실분</Text>
+                <Text style={styles.boxInnerTitle}>Tennis CLUB</Text>
                 <Text style={styles.boxInnerTime}>2시간 전</Text>
                 <Text style={styles.boxInnerText}>테니스를 같이 칠 사람을 모집합니다. 테니스는 정말 좋은 운동이에요. 저랑 함께 테니스를 쳐요. 테니스를 같이 칠 사람을 모집합니다. 테니스는 정말 좋은 운동이에요. 저랑 함께 테니스를 쳐요. </Text>
                 <View style={styles.dottedBorder}></View>
@@ -55,7 +55,12 @@ const MeetingDetailScreen = () =>{
                         visible={modalVisible}
                         onClose={() => setModalVisible(false)}
                         onConfirm={() => {
+                            navigation.navigate('채팅', {
+                                screen: 'ChatTennisScreen',
+                                params: { /* 필요한 파라미터 */ },
+                            });
                             setModalVisible(false);
+                            
                         }}
                         />
                     )}

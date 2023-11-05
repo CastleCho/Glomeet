@@ -4,6 +4,7 @@ import ChattingScreen from '../ChattingStackScreens/ChattingScreen';
 import React, { useEffect } from "react"
 import ChatDetailScreen from '../ChattingStackScreens/ChatDetailScreen';
 import ChatJessicaScreen from '../ChattingStackScreens/ChatJessicaScreen';
+import ChatTennisScreen from '../ChattingStackScreens/ChatTennisScreen';
 import { View, Text, SafeAreaView, Image, ScrollView } from "react-native";
 import backicon from '../images/backicon.png';
 const Stack = createStackNavigator();
@@ -25,7 +26,7 @@ const ChattingStackScreen = ({navigation, route}) => {
                 headerBackImage: () => (
                     <Image source={backicon} style={{width:9, height:18, margin:10}}/>
                 ),
-                headerBackTitleVisible:false,
+                headerBackTitleVisible: false,
                 headerTitle: () => (
                     <Image
                     source={require('../images/logo_glomeet.png')}
@@ -36,7 +37,9 @@ const ChattingStackScreen = ({navigation, route}) => {
             }}>
             <Stack.Screen name="ChattingScreen" component={ChattingScreen} options = {{headerShown : true}}/>
             <Stack.Screen name="ChatDetailScreen" component={ChatDetailScreen} options = {{headerShown : true}}/>
-            <Stack.Screen name="ChatJessicaScreen" component={ChatJessicaScreen} options = {{headerShown : false}}/>
+            <Stack.Screen name="ChatJessicaScreen" component={ChatJessicaScreen} options = {{headerShown : true}}/>
+            <Stack.Screen name="ChatTennisScreen" component={ChatTennisScreen} options = {{headerShown : true}}/>
+            
         </Stack.Navigator>
     )
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal, View, Text, StyleSheet, TouchableOpacity, FlatList, TextInput, SafeAreaView, Image, ScrollView } from "react-native";
 import Swipeout from 'react-native-swipeout';
 import { useNavigation } from '@react-navigation/native';
-import search from '../images/magnifier.png'
+import search from '../images/Search.png'
 // import styles from '../Styles/Styles.js';
 // import BasicButton from '../Styles/BasicButton.js'
 
@@ -23,10 +23,10 @@ const ChattingScreen = () => {
     // 가상의 대화 데이터
     const chats = [
         { id: 'A1', name: 'Toans', tags: ['#경영학과', '#남자', '#외향', '#축구'], image: require('../images/boy.png'), message: ['Hi, my name is Toans'], time: '12:33', unread: 1 },
-        { id: 'A2', name: 'Siliva', tags: ['#간호학과', '#여자', '#내향', '#독서'], image: require('../images/chat_char.png'), message: 'hi', time: '12:31', unread: 1 },
         { id: 'A3', name: 'James', tags: ['#전자과', '#남자', '#내향', '#게임'], image: require('../images/boy.png'), message: 'Do you want to go to a cafe with me?', time: '09:07', unread: 9 },
-        { id: 'A4', name: 'Nhung Hoàng', tags: ['#이비즈', '#남자', '#외향', '#노래'], image: require('../images/boy.png'), message: 'I took a walk with my dog today and...', time: '10:17', unread: 1 },
-        { id: 'A5', name: 'Kate', tags: ['#약학과', '#여자', '#외향', '#수영'], image: require('../images/chat_char2.png'), message: 'Do you know where the gym is?', time: '10:09', unread: 0 },
+        { id: 'A4', name: 'Nhung Hoàng', tags: ['#이비즈', '#남자', '#외향', '#노래'], image: require('../images/boy.png'), message: 'I took a walk with my dog today and...', time: '10/03', unread: 1 },
+        { id: 'A2', name: 'Jessica', tags: ['#간호학과', '#여자', '#내향', '#독서'], image: require('../images/chat_char.png'), message: 'Let’s go to a cafe together today', time: '12:05', unread: 0 },
+        { id: 'A5', name: 'Kate', tags: ['#약학과', '#여자', '#외향', '#수영'], image: require('../images/chat_char2.png'), message: 'Do you know where the gym is?', time: '10/01', unread: 0 },
     ];
 
     const groupchats = [
@@ -39,42 +39,33 @@ const ChattingScreen = () => {
 
     return(
         <SafeAreaView style= {styles.container}>
-                
-                <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                    <Image
-                        source={require('../images/logo_glomeet.png')}
-                        style={{ width: 105, height: 39, marginBottom: 10 }}
-                    />
-                </View>
-
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity
                         style={[
                             styles.button,
-                            activePage === 'Matching' ? styles.activeButton : null,
+                            activePage === 'Matching' ? styles.activeButton : {}
                         ]}
                         onPress={() => setActivePage('Matching')}>
-                        <Text style={{fontFamily: 'pretendard-Medium', fontSize: 14}}>매칭</Text>
+                        <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 14, color: '#000'}}>매칭</Text>
                     </TouchableOpacity>
+                    <View style={{flex:1}}/>
                     <TouchableOpacity
                         style={[
                             styles.button,
-                            activePage === 'Meeting' ? styles.activeButton : null,
+                            activePage === 'Meeting' ? styles.activeButton : {}
                         ]}
                         onPress={() => setActivePage('Meeting')}>
-                        <Text style={{fontFamily: 'pretendard-Medium', fontSize: 14}}>모임</Text>
+                        <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 14, color: '#000'}}>모임</Text>
                     </TouchableOpacity>
                 </View>
 
 
 
-                <View style={{flexDirection: 'row'}}>
-                        
-                    <View style={styles.searchInput}>
-                        <Image source={search} style={{width: 25, height: 25, marginRight: 5}} />
-                        <TextInput placeholder='search...' style={{width: '90%'}}/>
-                    </View>
-
+                <View style={{borderRadius: 10 ,flexDirection: 'row', width: 350, height: 43, alignItems:'center', alignSelf: 'center', backgroundColor: '#F5F5F5'}}>
+                    <Image source={search} style={{width:25, height: 25, marginLeft: 5}}/>
+                    <TextInput style={{flex:1}}
+                            placeholder="Search..."
+                    />
                 </View>
 
 
@@ -173,22 +164,26 @@ const styles = StyleSheet.create({
     },
     page: {
       marginBottom: 20,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginHorizontal: 7
     },
     activeButton: {
       backgroundColor: '#ffffff',
-      width: '50%',
+      width: 196,
+      height: 35,
       borderBottomColor: '#5782F1',
       borderBottomWidth: 5,
       alignItems: 'center',
       justifyContent: 'center',
     },
     button: {
-      padding: 10,
-      width: '50%',
-      borderColor: '#ffffff',
+      width: 196,
+      height: 35,
+      borderBottomColor: '#ffffff',
       alignItems: 'center',
       justifyContent: 'center',
-      borderWidth: 1
+      borderBottomWidth: 5,
     },
     buttonContainer: {
       flexDirection: 'row',
@@ -209,7 +204,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#B5B5B5',
         marginRight: 15,
-        marginLeft: 15
+        
     },
     chatDetails: {
         flex: 1
@@ -247,7 +242,7 @@ const styles = StyleSheet.create({
       marginVertical: 3,
     },
     tagBox: {
-        width: 55,
+        
         height: 26,
         borderColor: '#ffffff',
         borderRadius: 20,    
@@ -255,11 +250,13 @@ const styles = StyleSheet.create({
         marginTop: 5,
         backgroundColor: '#D1DCFB',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        alignSelf: 'flex-start',
     },
     tagText: {
         fontFamily: 'Pretendard-Medium',
         fontSize: 11,
+        marginHorizontal: 8,
         color: '#8A8A8A',
     }
 });

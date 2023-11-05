@@ -73,7 +73,11 @@ const MatchingComplete = ({ navigation }) => {
                 <Text style={{fontFamily: 'Pretendard-Medium', fontSize: 14, color: '#949698'}}>
                     #경영학과  #카페{'\n'} #21   #회화공부
                 </Text>
-                <TouchableOpacity style={styles.chatbutton}>
+                <TouchableOpacity style={styles.chatbutton}
+                onPress={() =>{navigation.navigate('채팅', {
+                    screen: 'ChatJessicaScreen',
+                    params: { /* 필요한 파라미터 */ },
+                  });}}>
                     <Text style={{fontFamily: 'Pretendard-Regular', fontSize: 15, color: '#635C5C'}}>
                         Jessica에게 메세지 보내기
                     </Text>

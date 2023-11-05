@@ -3,8 +3,8 @@ import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Image
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import send from '../images/send.png'
 
-const ChatDetailScreen = ({ route, navigation }) => {
-    const { chat } = route.params;
+const ChatJessicaScreen = ({navigation }) => {
+    const chat = {name:'Jessica',image:require('../images/chatting.png'), messages: 'asdasd'}
     const category = ['안녕하세요', '뭐하고 계세요?', '같이 등산하러가요', '오늘 같이 카페가요!', '기분이 어때요?'];
     const [selectedCategory, setSelectedCategory ] = useState(null);
     
@@ -24,7 +24,7 @@ const ChatDetailScreen = ({ route, navigation }) => {
                 console.error('Error loading messages:', error);
             }
         };
-        
+
         loadMessages();
         navigation.setOptions({
             headerTitle: chat.name,
@@ -55,12 +55,11 @@ const ChatDetailScreen = ({ route, navigation }) => {
             console.error('Error saving message:', error);
         }
     };
-    
 
     return (
         <SafeAreaView style={[styles.container, {backgroundColor: 'white'}]}>
             <View style={styles.container}>
-                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{justifyContent: 'center', alignItems: 'center', flex:1}}>
                     <View style={{ width: 113, height: 26, backgroundColor: '#DFDFDF', borderRadius: 20, justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ fontFamily: 'pretendard-Medium', color: '#8A8A8A', fontSize: 11, textAlign: 'center' }}>
                             2023년 10월 5일
@@ -69,19 +68,13 @@ const ChatDetailScreen = ({ route, navigation }) => {
                         <View style={{marginTop:25 ,justifyContent: 'center', alignItems: 'center'}}>
                             <Text style={{fontFamily:'pretendard-Medium', fontSize: 14, color:'#B4B4B4',textAlign: 'center'}}>매칭이 완료되었습니다! {'\n'} 새로운 사람과 대화할 때 매너있는 채팅을 해주세요 :)</Text>
                         </View>
-
+                        <View style={{flex:1}}/>
                         <View style={{marginTop:25 ,justifyContent: 'center', alignItems: 'center',marginTop: 270}}>
                             <Text style={{fontFamily:'pretendard-Medium', fontSize: 14, color:'#B4B4B4',textAlign: 'center'}}>Today 12:05</Text>
                         </View>
                         
                     </View>
-
-                    <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 20}}>
-                        <Image source={chat.image} style={styles.profileImage} />
-                        <View style= {{width: 234, height: 60, backgroundColor: '#F1F1F1', borderRadius: 20,justifyContent: 'center', alignItems: 'left'}}>
-                            <Text style={styles.chatMessage}>{chat.message}</Text>
-                        </View>
-                    </View>
+                    
 
                     <View style={{marginTop:20,justifyContent: 'center', alignItems: 'center'}}>
                         <Text style={{color: '#5782F1', fontFamily: 'pretendard-Medium',fontSize: 14}}>
@@ -232,4 +225,4 @@ const styles = StyleSheet.create({
       }
 });
 
-export default ChatDetailScreen;
+export default ChatJessicaScreen;

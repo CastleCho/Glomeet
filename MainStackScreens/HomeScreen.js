@@ -3,9 +3,8 @@ import {StyleSheet, Text, View, Image, FlatList,TextInput,TouchableOpacity} from
 import { Modalize } from 'react-native-modalize';
 import RewardModal from '../Styles/RewardModal';
 import alramicon from '../images/alramicon.png';
-
-
-
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['ViewPropTypes will be removed']);
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false);

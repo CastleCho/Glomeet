@@ -30,6 +30,7 @@ const MeetingStackScreen = ({ navigation, route }) => {
                 headerBackImage: () => (
                     <Image source={backicon} style={{width:9, height:18, margin:10}}/>
                 ),
+                headerBackTitleVisible: false,
                 headerTitle: () => (
                     <Image
                     source={require('../images/logo_glomeet.png')}

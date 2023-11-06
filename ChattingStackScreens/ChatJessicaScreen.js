@@ -3,8 +3,9 @@ import {View, Text, SafeAreaView, StyleSheet, TouchableOpacity, TextInput, Image
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import send from '../images/send.png'
 import backicon from '../images/backicon.png';
+
 const ChatJessicaScreen = ({navigation }) => {
-    const chat = {name:'Jessica',image:require('../images/chatting.png'), messages: 'asdasd'}
+    const chat = {name:'Jessica',image:require('../images/boy.png'), messages: 'asdasd'}
     const category = ['안녕하세요', '뭐하고 계세요?', '같이 등산하러가요', '오늘 같이 카페가요!', '기분이 어때요?'];
     const [selectedCategory, setSelectedCategory ] = useState(null);
     
@@ -12,6 +13,10 @@ const ChatJessicaScreen = ({navigation }) => {
         setSelectedCategory(category);
     };
     const [messages, setMessages] = useState([]);
+    const [messageSent, setMessageSent] = useState(false);
+    const [showImage, setShowImage] = useState(false);
+    const [showPrompt, setShowPrompt] = useState(true);
+
 
     useEffect(() => {
         const loadMessages = async () => {
@@ -41,25 +46,49 @@ const ChatJessicaScreen = ({navigation }) => {
     const [inputMessage, setInputMessage] = useState('');
     
     const handlePresetMessage = () => {
-        const predefinedMessage = "Let’s go to a cafe together today";
+        const predefinedMessage = "Let’s go to a cafe together today!";
         
         setInputMessage(predefinedMessage);
       };
 
-    const sendMessage = async () => {
+      const sendMessage = async () => {
         if (inputMessage.trim() === '') {
             alert('Message cannot be empty!');
             return;
         }
+        // 새로운 메시지 객체 생성
+        const newMessage = {
+            text: inputMessage,
+            id: Date.now().toString()
+        };
 
-        const updatedMessages = [...messages, inputMessage];
+        const updatedMessages = [...messages, newMessage];
+
         try {
             await AsyncStorage.setItem('chatMessages', JSON.stringify(updatedMessages));
             setMessages(updatedMessages);
             setInputMessage('');
+            setMessageSent(true);
+            setShowImage(true);
+            setShowPrompt(false);
         } catch (error) {
             console.error('Error saving message:', error);
         }
+    };
+
+    const renderLastMessage = () => {
+        if (!messageSent || messages.length === 0) {
+            return null; // 메시지가 보내지지 않았거나 없을 경우 아무것도 표시하지 않음
+        }
+
+        // 메시지 배열에서 마지막 메시지를 추출
+        const lastMessage = messages[messages.length - 1];
+
+        return (
+            <View style={styles.messageItem}>
+                <Text style={styles.messageText}>{lastMessage.text}</Text>
+            </View>
+        );
     };
 
     return (
@@ -80,12 +109,16 @@ const ChatJessicaScreen = ({navigation }) => {
                         </View>
                         
                     </View>
-                    
-
-                    <View style={{marginTop:20,justifyContent: 'center', alignItems: 'center'}}>
-                        <Text style={{color: '#5782F1', fontFamily: 'pretendard-Medium',fontSize: 14}}>
-                            버튼을 눌러 채팅을 시작해보세요!
-                        </Text>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end'}} >
+                    {renderLastMessage()}
+                    {showImage && <Image source={chat.image} style={styles.profileImage} />}
+                    </View>
+                    <View style={{justifyContent: 'center', alignItems: 'center'}}>
+                        {showPrompt && (
+                            <Text style={{color: '#5782F1', fontFamily: 'pretendard-Medium',fontSize: 14}}>
+                                버튼을 눌러 채팅을 시작해보세요!
+                            </Text>
+                        )}
                         <View style={{ flexDirection: 'column', marginTop: 20, alignItems: 'center' }}>
 
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
@@ -203,7 +236,8 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: '#D7D7D7',
         backgroundColor: '#D7D7D7',
-        marginRight: 10
+        marginRight: 10,
+        marginLeft: 10
     },
     chatName: {
         flexDirection: 'row',
@@ -228,7 +262,23 @@ const styles = StyleSheet.create({
         fontFamily: 'Pretendard-Regular',
         fontSize: 14,
         marginLeft: 20
-      }
+      },
+      messageItem: {
+        marginVertical: 5,
+        backgroundColor: '#5782F1',
+        alignItems: 'center', 
+        justifyContent: 'center',
+        borderRadius: 20,
+        width: 250, height: 50,
+        alignItems: 'flex-start',
+        paddingLeft: 20
+    },
+    messageText: {
+        fontFamily: 'Pretendard-Regular',
+        color: '#FFFFFF',
+        fontSize: 14,
+        marginRight: 20,
+    },
 });
 
 export default ChatJessicaScreen;
